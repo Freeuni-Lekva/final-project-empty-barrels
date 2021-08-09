@@ -9,6 +9,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ResourceBundle reader = null;
+
         try{
             // Reads resources from dbconfig.properties file located
             // under src/main/resources/
