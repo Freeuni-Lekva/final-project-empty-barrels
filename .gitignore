@@ -3,3 +3,4 @@ target
 *.idea
 target/*
 resources/dbconfig.properties
+dbconfig.properties
