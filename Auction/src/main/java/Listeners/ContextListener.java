@@ -10,7 +10,7 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ResourceBundle reader = null;
 
-        try{
+        try {
             // Reads resources from dbconfig.properties file located
             // under src/main/resources/
             reader = ResourceBundle.getBundle("dbconfig");
@@ -24,7 +24,7 @@ public class ContextListener implements ServletContextListener {
 //            System.out.println(reader.getString("db.url"));
 //            System.out.println(reader.getString("db.username"));
 //            System.out.println(reader.getString("db.password"));
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
