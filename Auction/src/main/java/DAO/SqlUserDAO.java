@@ -24,7 +24,7 @@ public class SqlUserDAO implements UserDAO {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM User" +
                                                                  " WHERE ID=?;");
 
-            stmt.setString(1, String.valueOf(id));
+            stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             user = convertToUser(resultSet);
         } catch (SQLException throwables) {
