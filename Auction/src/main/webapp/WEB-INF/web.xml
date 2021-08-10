@@ -5,6 +5,36 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <servlet>
+    <servlet-name>HomeServlet</servlet-name>
+    <servlet-class>Servlets.HomeServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>HomeServlet</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>Servlets.LoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CreateAccountServlet</servlet-name>
+    <servlet-class>Servlets.CreateAccountServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>CreateAccountServlet</servlet-name>
+    <url-pattern>/create-account</url-pattern>
+  </servlet-mapping>
+  
   <listener>
     <listener-class>Listeners.ContextListener</listener-class>
   </listener>
