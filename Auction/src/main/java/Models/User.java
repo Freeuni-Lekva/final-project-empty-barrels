@@ -17,7 +17,7 @@ public class User {
     private int id;
     private int userInfoId;
     private String username;
-    private Password password;
+    private String password;
     private boolean isDealer;
     private boolean isAdmin;
     private int numAuctionsWon;
@@ -25,7 +25,7 @@ public class User {
     private int numReviews;
     private int status; // SILVER, GOLD, PLATINUM
 
-    public User(int id, int userInfoId, String username, Password password,
+    public User(int id, int userInfoId, String username, String password,
                 boolean isDealer, boolean isAdmin, int numAuctionsWon,
                 int rating, int numReviews) {
         this.id = id;
@@ -52,7 +52,7 @@ public class User {
         return username;
     }
 
-    public Password getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -92,7 +92,10 @@ public class User {
         this.username = username;
     }
 
-    public void setPassword(Password password) {
+    /**
+     * @param password Hash value of users password
+     */
+    public void setPassword(String password) {
         this.password = password;
     }
 
