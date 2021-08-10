@@ -3,11 +3,13 @@ package Models;
 import java.util.Objects;
 
 public class User {
+    /* Constants for User status */
     public static final int SILVER = 0;
     public static final int GOLD = 1;
     public static final int PLATINUM = 2;
     public static final int STATUS_UNDEFINED = -1;
 
+    /* Constants to determine user's status */
     private static final int AUCTIONS_NEEDED_FOR_SILVER = 0;
     private static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
     private static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
@@ -115,18 +117,24 @@ public class User {
         this.numReviews = numReviews;
     }
 
-    // Increments numAuctionsWon by given value "increment"
+    /**
+     * Increments numAuctionsWon by given value "increment"
+     */
     public void incrementNumAuctionsWon(int increment) {
         this.numAuctionsWon += increment;
         this.status = calculateStatus(this.numAuctionsWon);
     }
 
-    // Increments numAuctionsWon by 1
+    /**
+     * Increments numAuctionsWon by 1
+     */
     public void incrementNumAuctionsWon() {
         incrementNumAuctionsWon(1);
     }
 
-    // Calculates user's status using number of auctions won by user
+    /**
+     * Calculates user's status using number of auctions won by user
+     */
     private int calculateStatus(int numAuctionsWon) {
         if (numAuctionsWon >= User.AUCTIONS_NEEDED_FOR_PLATINUM) {
             return User.PLATINUM;
