@@ -3,10 +3,14 @@ package Models;
 import java.util.Objects;
 
 public class Password {
-    String password;
+    private String password;
 
     public Password(String password) {
         this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override
