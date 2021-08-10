@@ -6,14 +6,14 @@ public class User {
     private int id;
     private int userInfoId;
     private String username;
-    private String password;
+    private Password password;
     private boolean isDealer;
     private boolean isAdmin;
     private int numAuctionsWon;
     private int rating;
     private int numReviews;
 
-    public User(int id, int userInfoId, String username, String password,
+    public User(int id, int userInfoId, String username, Password password,
                 boolean isDealer, boolean isAdmin, int numAuctionsWon,
                 int rating, int numReviews) {
         this.id = id;
@@ -39,7 +39,7 @@ public class User {
         return username;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 
@@ -75,7 +75,7 @@ public class User {
         this.username = username;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(Password password) {
         this.password = password;
     }
 
