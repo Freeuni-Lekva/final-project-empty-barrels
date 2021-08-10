@@ -7,10 +7,10 @@
 
     <form action="login" method="post">
         Please log in. <br>
-        <label for="username-input">Username:</label>
+        <label for="username-input">Username: </label>
         <input type="text" id="username-input" name="username">
         <br>
-        <label for="password-input">Password:</label>
+        <label for="password-input">Password: </label>
         <input type="password" id="password-input" name="password">
         <br>
         <button>Login</button>
