@@ -13,7 +13,7 @@ CREATE TABLE User(
   ID                INT NOT NULL AUTO_INCREMENT,
   user_info_ID      INT NOT NULL,
   user_name         VARCHAR(100) NOT NULL UNIQUE,
-  password          VARCHAR(100) NOT NULL, -- 100 because we will save SHA-256 HASHes
+  password          VARCHAR(80) NOT NULL, -- 100 because we will save SHA-256 HASHes (they are 64-char long)
   is_dealer         BOOLEAN NOT NULL,
   is_admin          BOOLEAN NOT NULL,
   auctions_won      INT NOT NULL DEFAULT 0,

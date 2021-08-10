@@ -25,6 +25,7 @@ public class ContextListener implements ServletContextListener {
             dataSource.setPassword(reader.getString("db.password"));
 
             connection = dataSource.getConnection();
+            servletContextEvent.getServletContext().setAttribute("sqlconnection", connection);
 
 //            Uncomment for testing
 //            System.out.println(reader.getString("db.url"));
