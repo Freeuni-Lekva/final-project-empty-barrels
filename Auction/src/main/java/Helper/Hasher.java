@@ -1,36 +1,17 @@
-package Models;
+package Helper;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
 
-public class Password {
-    private String password;
-
-    public Password(String password) {
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Password password1 = (Password) o;
-        return Objects.equals(password, password1.password);
-    }
-
+public class Hasher {
     /**
      * Given a byte[] array, produces a hex String,
      * such as "234a6f". with 2 chars for each byte in the array.
      * @param bytes bytes to convert to string
      * @return printableHash
      */
-    private String hexToString(byte[] bytes) {
+    private static String hexToString(byte[] bytes) {
         StringBuilder builder = new StringBuilder();
         for (int i=0; i<bytes.length; i++) {
             int val = bytes[i];
@@ -45,7 +26,7 @@ public class Password {
      * Hashes password string using SHA-256 algorithm
      * @return hash string of password
      */
-    public String hash() {
+    public static String hash(String password) {
         MessageDigest md = null;
         byte[] byteArray = password.getBytes(StandardCharsets.UTF_8);
 

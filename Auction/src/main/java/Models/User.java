@@ -1,5 +1,7 @@
 package Models;
 
+import Helper.GeneralConstants;
+
 import java.util.Objects;
 
 public class User {

@@ -1,6 +1,6 @@
 package Servlets;
 
-import Models.Password;
+import Helper.Hasher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +14,8 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Password passwordObject = new Password(password);
+        String passwordHash = Hasher.hash(password);
 
-        System.out.println("Username: " + username + " Password: " + passwordObject.hash());
+        System.out.println("Username: " + username + " Password: " + passwordHash);
     }
 }

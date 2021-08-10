@@ -1,4 +1,4 @@
-package Models;
+package Helper;
 
 public class GeneralConstants {
     public static final int NO_ID = -1;
