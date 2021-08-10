@@ -25,7 +25,10 @@ public class SqlUserInfoDAO implements UserInfoDAO {
                                                                  " WHERE ID=?;");
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
-            userInfo = convertToUserInfo(resultSet);
+
+            if (resultSet.next()) {
+                userInfo = convertToUserInfo(resultSet);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

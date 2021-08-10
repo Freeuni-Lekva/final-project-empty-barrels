@@ -8,14 +8,14 @@ public interface UserDAO {
     /**
      * Gets User object by its' id
      * @param id
-     * @return
+     * @return user with the id if it exists, null otherwise
      */
     public User getUser(int id);
 
     /**
      * Gets User object by its' username (every username is unique)
      * @param username
-     * @return
+     * @return user with the username if it exists, null otherwise
      */
     public User getUser(String username);
 
@@ -27,7 +27,7 @@ public interface UserDAO {
 
     /**
      * Gets every User from store
-     * @return
+     * @return list of users, empty list if there are no users
      */
     public List<User> getAllUsers();
 }

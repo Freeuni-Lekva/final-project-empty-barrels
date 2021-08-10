@@ -26,7 +26,10 @@ public class SqlUserDAO implements UserDAO {
 
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
-            user = convertToUser(resultSet);
+
+            if (resultSet.next()) {
+                user = convertToUser(resultSet);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -44,7 +47,10 @@ public class SqlUserDAO implements UserDAO {
 
             stmt.setString(1, username);
             ResultSet resultSet = stmt.executeQuery();
-            user = convertToUser(resultSet);
+
+            if (resultSet.next()) {
+                user = convertToUser(resultSet);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

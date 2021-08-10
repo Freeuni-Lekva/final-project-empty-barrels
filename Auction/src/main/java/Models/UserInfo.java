@@ -4,7 +4,7 @@ import Helper.GeneralConstants;
 
 import java.util.Objects;
 
-public class UserInfo {
+public class UserInfo implements GeneralConstants {
     private int id;
     private String firstName;
     private String lastName;
@@ -26,7 +26,7 @@ public class UserInfo {
 
     public UserInfo(String firstName, String lastName, String email, String address,
                     String phoneNumber, String note) {
-        this(GeneralConstants.NO_ID, firstName, lastName, email, address, phoneNumber, note);
+        this(NO_ID, firstName, lastName, email, address, phoneNumber, note);
     }
 
     public int getId() {

@@ -1,13 +1,21 @@
 package Listeners;
 
+import DAO.SqlUserDAO;
+import DAO.SqlUserInfoDAO;
+import DAO.UserDAO;
+import DAO.UserInfoDAO;
+import Helper.GeneralConstants;
+import Helper.SQLPK;
 import org.apache.commons.dbcp.BasicDataSource;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class ContextListener implements ServletContextListener {
+public class ContextListener implements ServletContextListener, GeneralConstants {
     private Connection connection;
 
     @Override
@@ -25,7 +33,14 @@ public class ContextListener implements ServletContextListener {
             dataSource.setPassword(reader.getString("db.password"));
 
             connection = dataSource.getConnection();
-            servletContextEvent.getServletContext().setAttribute("sqlconnection", connection);
+
+            UserDAO userDAO = new SqlUserDAO(connection);
+            UserInfoDAO userInfoDAO = new SqlUserInfoDAO(connection);
+
+            ServletContext servletContext = servletContextEvent.getServletContext();
+            servletContext.setAttribute(CONNECTION, connection);
+            servletContext.setAttribute(USER_DAO, userDAO);
+            servletContext.setAttribute(USER_INFO_DAO, userInfoDAO);
 
 //            Uncomment for testing
 //            System.out.println(reader.getString("db.url"));

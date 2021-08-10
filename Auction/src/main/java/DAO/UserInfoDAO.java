@@ -8,7 +8,7 @@ public interface UserInfoDAO {
     /**
      * Gets a single UserInfo using its' id
      * @param id
-     * @return
+     * @return userInfo with the given id, null if it doesn't exist
      */
     public UserInfo getUserInfo(int id);
 
@@ -20,7 +20,7 @@ public interface UserInfoDAO {
 
     /**
      * Gets every UserInfo from the store
-     * @return
+     * @return list of UserInfo objects, empty list if there are none
      */
     public List<UserInfo> getAllUserInfos();
 }

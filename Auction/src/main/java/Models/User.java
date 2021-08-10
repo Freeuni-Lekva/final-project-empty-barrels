@@ -4,7 +4,7 @@ import Helper.GeneralConstants;
 
 import java.util.Objects;
 
-public class User {
+public class User implements GeneralConstants {
     /* Constants for User status */
     public static final int SILVER = 0;
     public static final int GOLD = 1;
@@ -45,7 +45,11 @@ public class User {
     public User(int userInfoId, String username, String password,
                 boolean isDealer, boolean isAdmin, int numAuctionsWon,
                 int rating, int numReviews) {
-        this(GeneralConstants.NO_ID, userInfoId, username, password, isDealer, isAdmin, numAuctionsWon, rating, numReviews);
+        this(NO_ID, userInfoId, username, password, isDealer, isAdmin, numAuctionsWon, rating, numReviews);
+    }
+
+    public User(int userInfoId, String username, String password) {
+        this(NO_ID, userInfoId, username, password, false, false, 0, 0, 0);
     }
 
     public int getId() {
