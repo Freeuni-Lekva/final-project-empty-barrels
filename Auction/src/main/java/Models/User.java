@@ -40,6 +40,21 @@ public class User {
         this.status = calculateStatus(numAuctionsWon);
     }
 
+    public User(int userInfoId, String username, String password,
+                boolean isDealer, boolean isAdmin, int numAuctionsWon,
+                int rating, int numReviews) {
+        this.id = GeneralConstants.NO_ID;
+        this.userInfoId = userInfoId;
+        this.username = username;
+        this.password = password;
+        this.isDealer = isDealer;
+        this.isAdmin = isAdmin;
+        this.numAuctionsWon = numAuctionsWon;
+        this.rating = rating;
+        this.numReviews = numReviews;
+        this.status = calculateStatus(numAuctionsWon);
+    }
+
     public int getId() {
         return id;
     }

@@ -13,6 +13,12 @@ public interface UserInfoDAO {
     public UserInfo getUserInfo(int id);
 
     /**
+     * Inserts given UserInfo object in the store
+     * @param userInfo
+     */
+    public void insertUserInfo(UserInfo userInfo);
+
+    /**
      * Gets every UserInfo from the store
      * @return
      */

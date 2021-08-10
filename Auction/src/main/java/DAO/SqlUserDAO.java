@@ -70,6 +70,32 @@ public class SqlUserDAO implements UserDAO {
         return userList;
     }
 
+    @Override
+    public void insertUser(User user) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO User" +
+                    "(user_info_ID, user_name, password, is_dealer, is_admin, auctions_won," +
+                    "rating, num_reviews)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setInt(1, user.getUserInfoId());
+            stmt.setString(2, user.getUsername());
+            stmt.setString(3, user.getPassword());
+            stmt.setBoolean(4, user.getIsDealer());
+            stmt.setBoolean(5, user.getIsAdmin());
+            stmt.setInt(6, user.getNumAuctionsWon());
+            stmt.setInt(7, user.getRating());
+            stmt.setInt(8, user.getNumReviews());
+            int numRowsAffected = stmt.executeUpdate();
+
+            if (numRowsAffected != 1) {
+                throw new SQLException();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
     /**
      * Converts resultSet into User object
      * @param resultSet a single row from the User table

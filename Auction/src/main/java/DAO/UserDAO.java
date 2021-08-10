@@ -20,6 +20,12 @@ public interface UserDAO {
     public User getUser(String username);
 
     /**
+     * Inserts given user object in the store
+     * @param user
+     */
+    public void insertUser(User user);
+
+    /**
      * Gets every User from store
      * @return
      */

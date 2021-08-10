@@ -22,6 +22,17 @@ public class UserInfo {
         this.note = note;
     }
 
+    public UserInfo(String firstName, String lastName, String email, String address,
+                    String phoneNumber, String note) {
+        this.id = GeneralConstants.NO_ID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.note = note;
+    }
+
     public int getId() {
         return id;
     }
