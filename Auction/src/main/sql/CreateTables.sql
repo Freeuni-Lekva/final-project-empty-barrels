@@ -12,8 +12,8 @@ CREATE TABLE UserInfo(
 CREATE TABLE User(
   ID                INT NOT NULL AUTO_INCREMENT,
   user_info_ID      INT NOT NULL,
-  user_name         VARCHAR(100) NOT NULL,
-  password          VARCHAR(500) NOT NULL, -- 500 because we will probably save HASHes
+  user_name         VARCHAR(100) NOT NULL UNIQUE,
+  password          VARCHAR(100) NOT NULL, -- 100 because we will save SHA-256 HASHes
   is_dealer         BOOLEAN NOT NULL,
   is_admin          BOOLEAN NOT NULL,
   auctions_won      INT NOT NULL DEFAULT 0,

@@ -3,9 +3,13 @@ package Listeners;
 import org.apache.commons.dbcp.BasicDataSource;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ContextListener implements ServletContextListener {
+    private Connection connection;
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ResourceBundle reader = null;
@@ -20,6 +24,8 @@ public class ContextListener implements ServletContextListener {
             dataSource.setUsername(reader.getString("db.username"));
             dataSource.setPassword(reader.getString("db.password"));
 
+            connection = dataSource.getConnection();
+
 //            Uncomment for testing
 //            System.out.println(reader.getString("db.url"));
 //            System.out.println(reader.getString("db.username"));
@@ -31,6 +37,10 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
+        try {
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
