@@ -1,6 +1,7 @@
 package Servlets;
 
 import DAO.UserDAO;
+import Services.UserService;
 import Helper.GeneralConstants;
 import Helper.Hasher;
 import Models.User;
@@ -10,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet implements GeneralConstants {
@@ -22,7 +22,8 @@ public class LoginServlet extends HttpServlet implements GeneralConstants {
         String passwordHash = Hasher.hash(password);
 
         ServletContext servletContext = getServletContext();
-        UserDAO userDAO = (UserDAO)servletContext.getAttribute(USER_DAO);
+        UserService userService = (UserService)servletContext.getAttribute(USER_SERVICE);
+        UserDAO userDAO = userService.getUserDAO();
         User foundUser = userDAO.getUser(username);
 
         if (foundUser == null) {

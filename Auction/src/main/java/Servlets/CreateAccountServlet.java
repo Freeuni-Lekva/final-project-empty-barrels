@@ -1,8 +1,7 @@
 package Servlets;
 
-import DAO.HelperDAO;
 import DAO.UserDAO;
-import DAO.UserInfoDAO;
+import Services.UserService;
 import Helper.GeneralConstants;
 import Helper.Hasher;
 import Models.User;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 
 public class CreateAccountServlet extends HttpServlet implements GeneralConstants {
     @Override
@@ -25,9 +23,8 @@ public class CreateAccountServlet extends HttpServlet implements GeneralConstant
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = getServletContext();
-        Connection connection = (Connection)servletContext.getAttribute(CONNECTION);
-        UserDAO userDAO = (UserDAO)servletContext.getAttribute(USER_DAO);
-        UserInfoDAO userInfoDAO = (UserInfoDAO)servletContext.getAttribute(USER_INFO_DAO);
+        UserService userService = (UserService)servletContext.getAttribute(USER_SERVICE);
+        UserDAO userDAO = userService.getUserDAO();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -53,7 +50,7 @@ public class CreateAccountServlet extends HttpServlet implements GeneralConstant
             UserInfo userInfo = new UserInfo(firstName, lastname, email, address, phoneNumber, note);
 
             String passwordHash = Hasher.hash(password);
-            boolean inserted = HelperDAO.insertUserWithInfo(connection, userDAO, userInfoDAO, username, passwordHash, userInfo);
+            boolean inserted = userService.insertUser(username, passwordHash, userInfo);
 
             if (inserted) {
                 request.getRequestDispatcher("Pages/successful-account-creation.jsp").forward(request, response);

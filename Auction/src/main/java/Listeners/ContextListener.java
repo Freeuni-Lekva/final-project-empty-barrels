@@ -1,11 +1,8 @@
 package Listeners;
 
-import DAO.SqlUserDAO;
-import DAO.SqlUserInfoDAO;
-import DAO.UserDAO;
-import DAO.UserInfoDAO;
+import DAO.*;
 import Helper.GeneralConstants;
-import Helper.SQLPK;
+import Services.UserService;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import javax.servlet.ServletContext;
@@ -31,21 +28,19 @@ public class ContextListener implements ServletContextListener, GeneralConstants
             dataSource.setUrl(reader.getString("db.url"));
             dataSource.setUsername(reader.getString("db.username"));
             dataSource.setPassword(reader.getString("db.password"));
+//            Uncomment for testing
+//            System.out.println(reader.getString("db.url"));
+//            System.out.println(reader.getString("db.username"));
+//            System.out.println(reader.getString("db.password"));
 
             connection = dataSource.getConnection();
 
             UserDAO userDAO = new SqlUserDAO(connection);
             UserInfoDAO userInfoDAO = new SqlUserInfoDAO(connection);
+            UserService userService = new UserService(userDAO, userInfoDAO, connection);
 
             ServletContext servletContext = servletContextEvent.getServletContext();
-            servletContext.setAttribute(CONNECTION, connection);
-            servletContext.setAttribute(USER_DAO, userDAO);
-            servletContext.setAttribute(USER_INFO_DAO, userInfoDAO);
-
-//            Uncomment for testing
-//            System.out.println(reader.getString("db.url"));
-//            System.out.println(reader.getString("db.username"));
-//            System.out.println(reader.getString("db.password"));
+            servletContext.setAttribute(USER_SERVICE, userService);
         } catch (Exception e) {
             e.printStackTrace();
         }

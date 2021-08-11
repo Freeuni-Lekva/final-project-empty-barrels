@@ -7,4 +7,5 @@ public interface GeneralConstants {
     String USER_INFO_DAO = "userInfoDAO";
     String SQLPK_STRING = "sqlpk";
     String CONNECTION = "connection";
+    String USER_SERVICE = "userService";
 }
