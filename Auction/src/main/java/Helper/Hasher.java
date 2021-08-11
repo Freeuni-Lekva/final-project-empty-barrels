@@ -13,12 +13,14 @@ public class Hasher {
      */
     private static String hexToString(byte[] bytes) {
         StringBuilder builder = new StringBuilder();
-        for (int i=0; i<bytes.length; i++) {
+
+        for (int i = 0; i < bytes.length; i++) {
             int val = bytes[i];
             val = val & 0xff;  // remove higher bits, sign
-            if (val<16) builder.append('0'); // leading 0
+            if (val < 16) builder.append('0'); // leading 0
             builder.append(Integer.toString(val, 16));
         }
+
         return builder.toString();
     }
 
