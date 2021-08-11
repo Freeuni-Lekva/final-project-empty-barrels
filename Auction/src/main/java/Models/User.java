@@ -11,7 +11,8 @@ public class User implements GeneralConstants {
     public static final int PLATINUM = 2;
     public static final int STATUS_UNDEFINED = -1;
 
-    /* Constants to determine user's status */
+    /* Constants to determine user's status
+    *  if you change these, some tests won't work */
     private static final int AUCTIONS_NEEDED_FOR_SILVER = 0;
     private static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
     private static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
