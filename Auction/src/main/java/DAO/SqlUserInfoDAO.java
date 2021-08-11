@@ -55,7 +55,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
     }
 
     @Override
-    public void insertUserInfo(UserInfo userInfo) {
+    public boolean insertUserInfo(UserInfo userInfo) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO UserInfo " +
                     "(first_name, last_name, email, address, phone_number, note)" +
@@ -68,12 +68,28 @@ public class SqlUserInfoDAO implements UserInfoDAO {
             stmt.setString(6, userInfo.getNote());
             int numRowsAffected = stmt.executeUpdate();
 
-            if (numRowsAffected != 1) {
-                throw new SQLException();
-            }
+            return numRowsAffected == 1;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        return false;
+    }
+
+    @Override
+    public boolean removeUserInfo(int id) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM UserInfo" +
+                                                                 " WHERE ID=?");
+            stmt.setInt(1, id);
+            int numRowsAffected = stmt.executeUpdate();
+
+            return numRowsAffected == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
     }
 
     /**

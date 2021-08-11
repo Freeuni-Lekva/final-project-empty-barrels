@@ -77,7 +77,7 @@ public class SqlUserDAO implements UserDAO {
     }
 
     @Override
-    public void insertUser(User user) {
+    public boolean insertUser(User user) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO User" +
                     "(user_info_ID, user_name, password, is_dealer, is_admin, auctions_won," +
@@ -93,13 +93,44 @@ public class SqlUserDAO implements UserDAO {
             stmt.setInt(8, user.getNumReviews());
             int numRowsAffected = stmt.executeUpdate();
 
-            if (numRowsAffected != 1) {
-                throw new SQLException();
-            }
+            return numRowsAffected == 1;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean removeUser(int id) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM User" +
+                                                                 " WHERE ID=?;");
+            stmt.setInt(1, id);
+            int numRowsAffected = stmt.executeUpdate();
+
+            return numRowsAffected == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean removeUser(String username) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM User" +
+                    " WHERE user_name=?;");
+            stmt.setString(1, username);
+            int numRowsAffected = stmt.executeUpdate();
+
+            return numRowsAffected == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
     }
 
     /**

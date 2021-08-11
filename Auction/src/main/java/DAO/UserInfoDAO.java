@@ -15,8 +15,16 @@ public interface UserInfoDAO {
     /**
      * Inserts given UserInfo object in the store
      * @param userInfo
+     * @return true if userInfo was removed, false otherwise
      */
-    public void insertUserInfo(UserInfo userInfo);
+    public boolean insertUserInfo(UserInfo userInfo);
+
+    /**
+     * Removes UserInfo with the given id from UserInfo table
+     * @param id
+     * @return true if removed, false otherwise
+     */
+    public boolean removeUserInfo(int id);
 
     /**
      * Gets every UserInfo from the store

@@ -22,8 +22,23 @@ public interface UserDAO {
     /**
      * Inserts given user object in the store
      * @param user
+     * @return true if user was inserted, false otherwise
      */
-    public void insertUser(User user);
+    public boolean insertUser(User user);
+
+    /**
+     * Removes user with the given id
+     * @param id
+     * @return true if user was removed, false otherwise
+     */
+    public boolean removeUser(int id);
+
+    /**
+     * Removes user with the given username
+     * @param username
+     * @return true if user was removed, false otherwise
+     */
+    public boolean removeUser(String username);
 
     /**
      * Gets every User from store

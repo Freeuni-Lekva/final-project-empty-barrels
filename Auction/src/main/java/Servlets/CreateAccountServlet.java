@@ -45,23 +45,37 @@ public class CreateAccountServlet extends HttpServlet implements GeneralConstant
             // TODO: notify user on the webpage instead of STDOUT
             System.out.println("Account with the given username already exists");
             request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
-            return;
         } else if (!password.equals(repeatedPassword)) {
             // TODO: notify user on the webpage instead of STDOUT
             System.out.println("Repeated password is invalid");
             request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
-            return;
         } else {
             UserInfo userInfo = new UserInfo(firstName, lastname, email, address, phoneNumber, note);
-            userInfoDAO.insertUserInfo(userInfo);
+            boolean insertedUserInfo = userInfoDAO.insertUserInfo(userInfo);
 
             int lastID = SQLPK.getLastPrimaryKey(connection);
+
+            if (!insertedUserInfo) {
+                userInfoDAO.removeUserInfo(lastID);
+                // TODO: notify user on the webpage instead of STDOUT
+                System.out.println("Couldn't register");
+                request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
+                return;
+            }
+
             String passwordHash = Hasher.hash(password);
 
             User newUser = new User(lastID, username, passwordHash);
-            userDAO.insertUser(newUser);
-        }
+            boolean insertedUser = userDAO.insertUser(newUser);
 
-        request.getRequestDispatcher("Pages/successful-account-creation.jsp").forward(request, response);
+            if (insertedUser) {
+                request.getRequestDispatcher("Pages/successful-account-creation.jsp").forward(request, response);
+            } else {
+                userInfoDAO.removeUserInfo(lastID);
+                // TODO: notify user on the webpage instead of STDOUT
+                System.out.println("Couldn't register");
+                request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
+            }
+        }
     }
 }

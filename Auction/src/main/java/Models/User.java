@@ -19,7 +19,7 @@ public class User implements GeneralConstants {
     private int id;
     private int userInfoId;
     private String username;
-    private String password;
+    private String password; // SHA-256 Hash string of user's raw password
     private boolean isDealer;
     private boolean isAdmin;
     private int numAuctionsWon;
@@ -105,7 +105,7 @@ public class User implements GeneralConstants {
     }
 
     /**
-     * @param password Hash value of users password
+     * @param password Hash value of users raw password
      */
     public void setPassword(String password) {
         this.password = password;
