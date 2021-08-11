@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Empty Barrels</title>
@@ -8,10 +9,10 @@
     <form action="login" method="post">
         Please log in. <br>
         <label for="username-input">Username: </label>
-        <input type="text" id="username-input" name="username">
+        <input type="text" id="username-input" name="username" placeholder="username">
         <br>
         <label for="password-input">Password: </label>
-        <input type="password" id="password-input" name="password">
+        <input type="password" id="password-input" name="password" placeholder="•••••••">
         <br>
         <button>Login</button>
     </form>
