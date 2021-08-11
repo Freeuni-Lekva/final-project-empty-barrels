@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class UserInfoTest {
 
     @Test
-    public void basicTest1() {
+    public void testBasic1() {
         UserInfo userInfo = new UserInfo(1, "levan", "samadashvili", "@", "qutaisi", "555", "note");
 
         assertEquals(1, userInfo.getId());

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class UserTest {
 
     @Test
-    public void basicTest1() {
+    public void testBasic1() {
         User user = new User(1, 2, "america", "hash", false, true, 15, 10, 20);
 
         assertEquals(1, user.getId());
