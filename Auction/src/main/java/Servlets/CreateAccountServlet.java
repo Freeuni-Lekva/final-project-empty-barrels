@@ -1,10 +1,10 @@
 package Servlets;
 
+import DAO.HelperDAO;
 import DAO.UserDAO;
 import DAO.UserInfoDAO;
 import Helper.GeneralConstants;
 import Helper.Hasher;
-import Helper.SQLPK;
 import Models.User;
 import Models.UserInfo;
 
@@ -51,27 +51,13 @@ public class CreateAccountServlet extends HttpServlet implements GeneralConstant
             request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
         } else {
             UserInfo userInfo = new UserInfo(firstName, lastname, email, address, phoneNumber, note);
-            boolean insertedUserInfo = userInfoDAO.insertUserInfo(userInfo);
-
-            int lastID = SQLPK.getLastPrimaryKey(connection);
-
-            if (!insertedUserInfo) {
-                userInfoDAO.removeUserInfo(lastID);
-                // TODO: notify user on the webpage instead of STDOUT
-                System.out.println("Couldn't register");
-                request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
-                return;
-            }
 
             String passwordHash = Hasher.hash(password);
+            boolean inserted = HelperDAO.insertUserWithInfo(connection, userDAO, userInfoDAO, username, passwordHash, userInfo);
 
-            User newUser = new User(lastID, username, passwordHash);
-            boolean insertedUser = userDAO.insertUser(newUser);
-
-            if (insertedUser) {
+            if (inserted) {
                 request.getRequestDispatcher("Pages/successful-account-creation.jsp").forward(request, response);
             } else {
-                userInfoDAO.removeUserInfo(lastID);
                 // TODO: notify user on the webpage instead of STDOUT
                 System.out.println("Couldn't register");
                 request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
