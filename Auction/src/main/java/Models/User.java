@@ -168,6 +168,9 @@ public class User implements GeneralConstants {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && userInfoId == user.userInfoId && isDealer == user.isDealer && isAdmin == user.isAdmin && numAuctionsWon == user.numAuctionsWon && rating == user.rating && numReviews == user.numReviews && status == user.status && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+
+        return id == user.id && userInfoId == user.userInfoId && isDealer == user.isDealer && isAdmin == user.isAdmin
+                && numAuctionsWon == user.numAuctionsWon && rating == user.rating && numReviews == user.numReviews
+                && username.equals(user.getUsername()) && password.equals(user.getPassword());
     }
 }
