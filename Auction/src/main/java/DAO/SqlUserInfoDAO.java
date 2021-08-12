@@ -21,7 +21,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
         UserInfo userInfo = null;
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM UserInfo" +
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM UserInfos" +
                                                                  " WHERE ID=?;");
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
@@ -41,7 +41,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
         List<UserInfo> userInfoList = new ArrayList<>();
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM UserInfo;");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM UserInfos;");
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
@@ -57,7 +57,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
     @Override
     public boolean insertUserInfo(UserInfo userInfo) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO UserInfo " +
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO UserInfos " +
                     "(first_name, last_name, email, address, phone_number, note)" +
                     "VALUES (?, ?, ?, ?, ?, ?)");
             stmt.setString(1, userInfo.getFirstName());
@@ -79,7 +79,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
     @Override
     public boolean removeUserInfo(int id) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM UserInfo" +
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM UserInfos" +
                                                                  " WHERE ID=?");
             stmt.setInt(1, id);
             int numRowsAffected = stmt.executeUpdate();

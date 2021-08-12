@@ -21,7 +21,7 @@ public class SqlUserDAO implements UserDAO {
         User user = null;
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM User" +
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
                                                                  " WHERE ID=?;");
 
             stmt.setInt(1, id);
@@ -42,7 +42,7 @@ public class SqlUserDAO implements UserDAO {
         User user = null;
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM User" +
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
                                                                  " WHERE user_name=?;");
 
             stmt.setString(1, username);
@@ -63,7 +63,7 @@ public class SqlUserDAO implements UserDAO {
         List<User> userList = new ArrayList<>();
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM User;");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users;");
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
@@ -79,7 +79,7 @@ public class SqlUserDAO implements UserDAO {
     @Override
     public boolean insertUser(User user) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO User" +
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Users" +
                     "(user_info_ID, user_name, password, is_dealer, is_admin, auctions_won," +
                     "rating, num_reviews)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -104,7 +104,7 @@ public class SqlUserDAO implements UserDAO {
     @Override
     public boolean removeUser(int id) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM User" +
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM Users" +
                                                                  " WHERE ID=?;");
             stmt.setInt(1, id);
             int numRowsAffected = stmt.executeUpdate();
@@ -120,7 +120,7 @@ public class SqlUserDAO implements UserDAO {
     @Override
     public boolean removeUser(String username) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM User" +
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM Users" +
                     " WHERE user_name=?;");
             stmt.setString(1, username);
             int numRowsAffected = stmt.executeUpdate();
