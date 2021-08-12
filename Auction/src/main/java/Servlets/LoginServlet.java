@@ -1,6 +1,8 @@
 package Servlets;
 
 import DAO.UserDAO;
+import DAO.UserInfoDAO;
+import Models.UserInfo;
 import Services.UserService;
 import Helper.GeneralConstants;
 import Helper.Hasher;
@@ -11,9 +13,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet implements GeneralConstants {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("Pages/account-home.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -24,6 +32,7 @@ public class LoginServlet extends HttpServlet implements GeneralConstants {
         ServletContext servletContext = getServletContext();
         UserService userService = (UserService)servletContext.getAttribute(USER_SERVICE);
         UserDAO userDAO = userService.getUserDAO();
+        UserInfoDAO userInfoDAO = userService.getUserInfoDAO();
         User foundUser = userDAO.getUser(username);
 
         if (foundUser == null) {
@@ -35,7 +44,15 @@ public class LoginServlet extends HttpServlet implements GeneralConstants {
             System.out.println("Invalid password");
             request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("Pages/successful-login.jsp").forward(request, response);
+            // Successful login
+            int userInfoId = foundUser.getUserInfoId();
+            UserInfo foundUserInfo = userInfoDAO.getUserInfo(userInfoId);
+
+            HttpSession session = request.getSession();
+            session.setAttribute(CURRENT_USER_STRING, foundUser);
+            session.setAttribute(CURRENT_USER_INFO_STRING, foundUserInfo);
+
+            request.getRequestDispatcher("Pages/account-home.jsp").forward(request, response);
         }
     }
 }
