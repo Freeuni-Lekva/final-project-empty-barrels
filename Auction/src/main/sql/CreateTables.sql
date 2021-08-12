@@ -22,3 +22,34 @@ CREATE TABLE User(
   PRIMARY KEY (ID),
   FOREIGN KEY (user_info_ID) REFERENCES UserInfo(ID)
 );
+
+CREATE TABLE Messages(
+    ID                INT NOT NULL AUTO_INCREMENT,
+    from_user_ID      INT NOT NULL,
+    to_user_ID        INT NOT NULL,
+    message           VARCHAR(500) NOT NULL, -- every message will have a character limit of 500
+    time_sent         TIME,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (from_user_ID) REFERENCES User(ID),
+    FOREIGN KEY (to_user_ID) REFERENCES User(ID)
+);
+
+CREATE TABLE User_Follower(
+    ID                INT NOT NULL AUTO_INCREMENT,
+    follower_ID       INT NOT NULL,
+    followee_ID       INT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (follower_ID) REFERENCES User(ID),
+    FOREIGN KEY (followee_ID) REFERENCES User(ID)
+);
+
+CREATE TABLE Reviews(
+    ID                INT NOT NULL AUTO_INCREMENT,
+    reviewer_ID       INT NOT NULL,
+    recipient_ID      INT NOT NULL,
+    review            VARCHAR(500), --  reviews will have a character limit of 500 (can be empty)
+    score             INT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (reviewer_ID) REFERENCES User(ID),
+    FOREIGN KEY (recipient_ID) REFERENCES User(ID)
+);
