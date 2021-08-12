@@ -18,7 +18,7 @@ public class Password {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Password password1 = (Password) o;
-        return Objects.equals(password, password1.password);
+        return password.equals(password1.getPassword());
     }
 
     @Override
