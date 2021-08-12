@@ -21,5 +21,7 @@
         <li>Note: <%=currentUserInfo.getNote()%></li>
     </ul>
 
+    <br>
+    <a href="account-home">Back</a>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package Listeners;
 
 import Helper.GeneralConstants;
+import Helper.SessionHelper;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
@@ -10,8 +11,7 @@ public class SessionListener implements HttpSessionListener, GeneralConstants {
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
         HttpSession session = httpSessionEvent.getSession();
-        session.setAttribute(CURRENT_USER_STRING, null);
-        session.setAttribute(CURRENT_USER_INFO_STRING, null);
+        SessionHelper.initSession(session);
     }
 
     @Override
