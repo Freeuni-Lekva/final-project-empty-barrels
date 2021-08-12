@@ -104,7 +104,9 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && userInfoId == user.userInfoId && isDealer == user.isDealer && isAdmin == user.isAdmin && numAuctionsWon == user.numAuctionsWon && rating == user.rating && numReviews == user.numReviews && username.equals(user.username) && password.equals(user.password);
+        return id == user.id && userInfoId == user.userInfoId && isDealer == user.isDealer && isAdmin == user.isAdmin
+                && numAuctionsWon == user.numAuctionsWon && rating == user.rating && numReviews == user.numReviews
+                && username.equals(user.getUsername()) && password.equals(user.getPassword());
     }
 
 }
