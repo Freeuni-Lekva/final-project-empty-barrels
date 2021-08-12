@@ -17,7 +17,7 @@ CREATE TABLE User(
   is_dealer         BOOLEAN NOT NULL,
   is_admin          BOOLEAN NOT NULL,
   auctions_won      INT NOT NULL DEFAULT 0,
-  rating            INT NOT NULL DEFAULT 0,
+  rating            DOUBLE PRECISION NOT NULL DEFAULT 0,
   num_reviews       INT NOT NULL DEFAULT 0,
   PRIMARY KEY (ID),
   FOREIGN KEY (user_info_ID) REFERENCES UserInfo(ID)

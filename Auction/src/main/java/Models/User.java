@@ -19,13 +19,14 @@ public class User {
     private boolean isDealer;
     private boolean isAdmin;
     private int numAuctionsWon;
-    private int rating;
+    private double rating;
     private int numReviews;
     private int status; // SILVER, GOLD, PLATINUM
+    private int sumReviewScores;
 
     public User(int id, int userInfoId, String username, Password password,
                 boolean isDealer, boolean isAdmin, int numAuctionsWon,
-                int rating, int numReviews) {
+                double rating, int numReviews) {
         this.id = id;
         this.userInfoId = userInfoId;
         this.username = username;
@@ -36,6 +37,7 @@ public class User {
         this.rating = rating;
         this.numReviews = numReviews;
         this.status = calculateStatus(numAuctionsWon);
+        this.sumReviewScores = 0; // might change later
     }
 
     public int getId() {
@@ -66,7 +68,7 @@ public class User {
         return numAuctionsWon;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -107,7 +109,7 @@ public class User {
         this.status = calculateStatus(numAuctionsWon);
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -124,6 +126,17 @@ public class User {
     // Increments numAuctionsWon by 1
     public void incrementNumAuctionsWon() {
         incrementNumAuctionsWon(1);
+    }
+
+    /**
+     * Gets a single review score and updates rating accordingly
+     * @param reviewScore score of the new review
+     */
+    public void addRating(int reviewScore) {
+        numReviews++;
+        sumReviewScores += reviewScore;
+
+        setRating((double)sumReviewScores / numReviews);
     }
 
     // Calculates user's status using number of auctions won by user
