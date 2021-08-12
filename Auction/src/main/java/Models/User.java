@@ -34,7 +34,7 @@ public class User {
         this.isDealer = isDealer;
         this.isAdmin = isAdmin;
         this.numAuctionsWon = numAuctionsWon;
-        this.rating = rating;
+        setRating(rating);
         this.numReviews = numReviews;
         this.status = calculateStatus(numAuctionsWon);
         this.sumReviewScores = 0; // might change later
@@ -109,7 +109,12 @@ public class User {
         this.status = calculateStatus(numAuctionsWon);
     }
 
+    /**
+     * Gets new rating as parameter and rounds it to 1 decimal number
+     * @param rating
+     */
     public void setRating(double rating) {
+        rating = Math.round(rating * 10) / 10.0;
         this.rating = rating;
     }
 
