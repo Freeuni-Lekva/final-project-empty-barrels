@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class HomeServlet extends HttpServlet implements GeneralConstants {
+public class LogoutServlet extends HttpServlet implements GeneralConstants {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         SessionHelper.initSession(session);
-
-        request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
+        response.sendRedirect("");
     }
 }

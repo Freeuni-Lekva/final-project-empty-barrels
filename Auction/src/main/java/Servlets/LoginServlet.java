@@ -2,6 +2,7 @@ package Servlets;
 
 import DAO.UserDAO;
 import DAO.UserInfoDAO;
+import Helper.SessionHelper;
 import Models.UserInfo;
 import Services.UserService;
 import Helper.GeneralConstants;
@@ -19,6 +20,14 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet implements GeneralConstants {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        boolean userExists = SessionHelper.checkIfUserExists(session);
+
+        if (!userExists) {
+            response.sendRedirect("");
+            return;
+        }
+
         request.getRequestDispatcher("Pages/account-home.jsp").forward(request, response);
     }
 

@@ -20,5 +20,7 @@
     <h1>User: <%=currentUser.getUsername()%></h1>
 
     <a href="profile">My Profile</a>
+    <br>
+    <a href="logout">Logout</a>
 </body>
 </html>
