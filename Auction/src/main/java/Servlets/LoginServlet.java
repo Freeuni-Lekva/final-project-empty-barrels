@@ -38,11 +38,11 @@ public class LoginServlet extends HttpServlet implements GeneralConstants {
         if (foundUser == null) {
             // TODO: Notify user on the webpage
             System.out.println("User doesn't exist");
-            request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
+            response.sendRedirect("");
         } else if (!passwordHash.equals(foundUser.getPassword())) {
             // TODO: Notify user on the webpage
             System.out.println("Invalid password");
-            request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
+            response.sendRedirect("");
         } else {
             // Successful login
             int userInfoId = foundUser.getUserInfoId();
@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet implements GeneralConstants {
             session.setAttribute(CURRENT_USER_STRING, foundUser);
             session.setAttribute(CURRENT_USER_INFO_STRING, foundUserInfo);
 
-            request.getRequestDispatcher("Pages/account-home.jsp").forward(request, response);
+            response.sendRedirect("/account-home");
         }
     }
 }

@@ -6,7 +6,7 @@
 <body>
     <h1>Empty Barrels Auction</h1>
 
-    <form action="login" method="post">
+    <form action="account-home" method="post">
         Please log in. <br>
         <label for="username-input">Username: </label>
         <input type="text" id="username-input" name="username" placeholder="username">
