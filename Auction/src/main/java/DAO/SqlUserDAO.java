@@ -80,17 +80,18 @@ public class SqlUserDAO implements UserDAO {
     public boolean insertUser(User user) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Users" +
-                    "(user_info_ID, user_name, password, is_dealer, is_admin, auctions_won," +
+                    "(user_info_ID, user_name, password, is_dealer, is_admin, is_banned, auctions_won," +
                     "rating, num_reviews)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setInt(1, user.getUserInfoId());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
             stmt.setBoolean(4, user.getIsDealer());
             stmt.setBoolean(5, user.getIsAdmin());
-            stmt.setInt(6, user.getNumAuctionsWon());
-            stmt.setInt(7, user.getRating());
-            stmt.setInt(8, user.getNumReviews());
+            stmt.setBoolean(6, user.getIsBanned());
+            stmt.setInt(7, user.getNumAuctionsWon());
+            stmt.setInt(8, user.getRating());
+            stmt.setInt(9, user.getNumReviews());
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
@@ -145,8 +146,8 @@ public class SqlUserDAO implements UserDAO {
             result = new User(resultSet.getInt(1), resultSet.getInt(2),
                               resultSet.getString(3), resultSet.getString(4),
                               resultSet.getBoolean(5), resultSet.getBoolean(6),
-                              resultSet.getInt(7), resultSet.getInt(8),
-                              resultSet.getInt(9));
+                              resultSet.getBoolean(7), resultSet.getInt(8),
+                              resultSet.getInt(9), resultSet.getInt(10));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

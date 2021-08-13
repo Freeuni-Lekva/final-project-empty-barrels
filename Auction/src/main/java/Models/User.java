@@ -12,7 +12,7 @@ public class User implements GeneralConstants {
     public static final int STATUS_UNDEFINED = -1;
 
     /* Constants to determine user's status
-    *  if you change these, some tests won't work */
+     *  if you change these, some tests won't work */
     private static final int AUCTIONS_NEEDED_FOR_SILVER = 0;
     private static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
     private static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
@@ -23,13 +23,14 @@ public class User implements GeneralConstants {
     private String password; // SHA-256 Hash string of user's raw password
     private boolean isDealer;
     private boolean isAdmin;
+    private boolean isBanned;
     private int numAuctionsWon;
     private int rating;
     private int numReviews;
     private int status; // SILVER, GOLD, PLATINUM
 
     public User(int id, int userInfoId, String username, String password,
-                boolean isDealer, boolean isAdmin, int numAuctionsWon,
+                boolean isDealer, boolean isAdmin, boolean isBanned, int numAuctionsWon,
                 int rating, int numReviews) {
         this.id = id;
         this.userInfoId = userInfoId;
@@ -37,6 +38,7 @@ public class User implements GeneralConstants {
         this.password = password;
         this.isDealer = isDealer;
         this.isAdmin = isAdmin;
+        this.isBanned = isBanned;
         this.numAuctionsWon = numAuctionsWon;
         this.rating = rating;
         this.numReviews = numReviews;
@@ -44,13 +46,13 @@ public class User implements GeneralConstants {
     }
 
     public User(int userInfoId, String username, String password,
-                boolean isDealer, boolean isAdmin, int numAuctionsWon,
+                boolean isDealer, boolean isAdmin, boolean isBanned, int numAuctionsWon,
                 int rating, int numReviews) {
-        this(NO_ID, userInfoId, username, password, isDealer, isAdmin, numAuctionsWon, rating, numReviews);
+        this(NO_ID, userInfoId, username, password, isDealer, isAdmin, isBanned, numAuctionsWon, rating, numReviews);
     }
 
     public User(int userInfoId, String username, String password) {
-        this(NO_ID, userInfoId, username, password, false, false, 0, 0, 0);
+        this(NO_ID, userInfoId, username, password, false, false, false, 0, 0, 0);
     }
 
     public int getId() {
@@ -75,6 +77,10 @@ public class User implements GeneralConstants {
 
     public boolean getIsAdmin() {
         return isAdmin;
+    }
+
+    public boolean getIsBanned() {
+        return isBanned;
     }
 
     public int getNumAuctionsWon() {
@@ -118,6 +124,10 @@ public class User implements GeneralConstants {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public void setIsBanned(boolean isBanned) {
+        this.isBanned = isBanned;
     }
 
     public void setNumAuctionsWon(int numAuctionsWon) {
