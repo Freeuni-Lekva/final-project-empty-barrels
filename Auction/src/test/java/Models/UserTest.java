@@ -104,7 +104,7 @@ public class UserTest {
     }
 
     @Test
-    public void testgetNumPossibleConcurrentAuctions1() {
+    public void testGetNumPossibleConcurrentAuctions1() {
         User user = new User(1, "america", "amer");
 
         user.setNumAuctionsWon(User.AUCTIONS_NEEDED_FOR_SILVER - 1);
