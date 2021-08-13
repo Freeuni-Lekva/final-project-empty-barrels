@@ -13,22 +13,25 @@ public class User implements GeneralConstants {
 
     /* Constants to determine user's status
      *  if you change these, some tests won't work */
-    private static final int AUCTIONS_NEEDED_FOR_SILVER = 0;
-    private static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
-    private static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
+    public static final int AUCTIONS_NEEDED_FOR_SILVER = 0;
+    public static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
+    public static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
 
     /* Constants to determine maximum number of possible
      * auctions user can participate in
-     * #### THESE NUMBERS ARE SUBJECT TO CHANGE #### */
-    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_UNDEFINED = 0;
-    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_SILVER = 3;
-    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_GOLD = 10;
-    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_PLATINUM = 50;
+     * #### THESE NUMBERS ARE SUBJECT TO CHANGE ####
+     * PUBLIC FOR TESTING*/
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_UNDEFINED = 0;
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_SILVER = 3;
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_GOLD = 10;
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_PLATINUM = 50;
 
-    private static final double MAX_BID_UNDEFINED = 0.0;
-    private static final double MAX_BID_SILVER = 1000.0;
-    private static final double MAX_BID_GOLD = 10000.0;
-    private static final double MAX_BID_PLATINUM = 100000.0;
+    public static final double MAX_BID_UNDEFINED = 0.0;
+    public static final double MAX_BID_SILVER = 1000.0;
+    public static final double MAX_BID_GOLD = 10000.0;
+    public static final double MAX_BID_PLATINUM = 100000.0;
+
+
 
     private int id;
     private int userInfoId;
