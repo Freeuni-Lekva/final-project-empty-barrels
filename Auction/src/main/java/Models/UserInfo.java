@@ -90,7 +90,7 @@ public class UserInfo implements GeneralConstants {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserInfo userInfo = (UserInfo) o;
-        return id == userInfo.id && firstName.equals(userInfo.getFirstName())
+        return id == userInfo.getId() && firstName.equals(userInfo.getFirstName())
                 && lastName.equals(userInfo.getLastName()) && email.equals(userInfo.getEmail())
                 && address.equals(userInfo.getAddress()) && phoneNumber.equals(userInfo.getPhoneNumber()) && note.equals(userInfo.getNote());
     }

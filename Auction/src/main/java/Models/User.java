@@ -179,8 +179,10 @@ public class User implements GeneralConstants {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
 
-        return id == user.id && userInfoId == user.userInfoId && isDealer == user.isDealer && isAdmin == user.isAdmin
-                && numAuctionsWon == user.numAuctionsWon && rating == user.rating && numReviews == user.numReviews
+        return id == user.getId() && userInfoId == user.getUserInfoId() && isDealer == user.getIsDealer()
+                && isAdmin == user.getIsAdmin() && isBanned == user.getIsBanned()
+                && numAuctionsWon == user.getNumAuctionsWon() && rating == user.getRating()
+                && numReviews == user.getNumReviews()
                 && username.equals(user.getUsername()) && password.equals(user.getPassword());
     }
 }
