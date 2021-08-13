@@ -56,7 +56,6 @@ public class UserService {
         int lastId = SQLPK.getLastPrimaryKey(connection);
 
         if (!userInfoInserted) {
-            userInfoDAO.removeUserInfo(lastId);
             return false;
         }
 
@@ -64,6 +63,7 @@ public class UserService {
         boolean userInserted = userDAO.insertUser(newUser);
 
         if (!userInserted) {
+            System.out.println("COULDN'T INSERT USER");
             userInfoDAO.removeUserInfo(lastId);
             return false;
         }

@@ -12,7 +12,7 @@ CREATE TABLE UserInfos(
 CREATE TABLE Users(
   ID                INT NOT NULL AUTO_INCREMENT,
   user_info_ID      INT NOT NULL,
-  user_name         VARCHAR(100) NOT NULL UNIQUE,
+  user_name         VARCHAR(100) BINARY NOT NULL UNIQUE,
   password          VARCHAR(80) NOT NULL, -- 100 because we will save SHA-256 HASHes (they are 64-char long)
   is_dealer         BOOLEAN NOT NULL DEFAULT FALSE,
   is_admin          BOOLEAN NOT NULL DEFAULT FALSE,
