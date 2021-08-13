@@ -1,8 +1,10 @@
 package Models;
 
+import Helper.GeneralConstants;
+
 import java.util.Objects;
 
-public class UserInfo {
+public class UserInfo implements GeneralConstants {
     private int id;
     private String firstName;
     private String lastName;
@@ -20,6 +22,11 @@ public class UserInfo {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.note = note;
+    }
+
+    public UserInfo(String firstName, String lastName, String email, String address,
+                    String phoneNumber, String note) {
+        this(NO_ID, firstName, lastName, email, address, phoneNumber, note);
     }
 
     public int getId() {
@@ -83,7 +90,7 @@ public class UserInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserInfo userInfo = (UserInfo) o;
-        return id == userInfo.id && firstName.equals(userInfo.getFirstName())
+        return id == userInfo.getId() && firstName.equals(userInfo.getFirstName())
                 && lastName.equals(userInfo.getLastName()) && email.equals(userInfo.getEmail())
                 && address.equals(userInfo.getAddress()) && phoneNumber.equals(userInfo.getPhoneNumber()) && note.equals(userInfo.getNote());
     }
