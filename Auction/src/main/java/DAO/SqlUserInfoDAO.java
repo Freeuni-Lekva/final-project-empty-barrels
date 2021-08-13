@@ -6,8 +6,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/* TABLES SHOULD BE EMPTY WHEN RUNNING THESE TESTS
- *  Or tests will empty them by themselves */
 public class SqlUserInfoDAO implements UserInfoDAO {
     private Connection connection;
 

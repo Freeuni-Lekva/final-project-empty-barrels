@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 
 import static org.junit.Assert.*;
 
+/* TABLES SHOULD BE EMPTY WHEN RUNNING THESE TESTS
+ *  Or tests will empty them by themselves */
 public class SqlUserInfoDAOTest {
     private UserInfoDAO userInfoDAO;
     private Connection connection;
