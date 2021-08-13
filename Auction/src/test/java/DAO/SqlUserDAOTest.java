@@ -74,7 +74,7 @@ public class SqlUserDAOTest {
         assertTrue(gottenUserById.getIsAdmin());
         assertTrue(gottenUserById.getIsBanned());
         assertEquals(10, gottenUserById.getNumAuctionsWon());
-        assertEquals(20, gottenUserById.getRating());
+        assertEquals(20, gottenUserById.getRating(), 0.0);
         assertEquals(30, gottenUserById.getNumReviews());
 
         sqlUserDAO.deleteEverything();
@@ -118,7 +118,7 @@ public class SqlUserDAOTest {
         assertTrue(gottenUserById.getIsAdmin());
         assertTrue(gottenUserById.getIsBanned());
         assertEquals(10, gottenUserById.getNumAuctionsWon());
-        assertEquals(20, gottenUserById.getRating());
+        assertEquals(20, gottenUserById.getRating(), 0.0);
         assertEquals(30, gottenUserById.getNumReviews());
 
         sqlUserDAO.deleteEverything();

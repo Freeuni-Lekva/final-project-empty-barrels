@@ -18,7 +18,7 @@ public class UserTest {
         assertTrue(user.getIsAdmin());
         assertFalse(user.getIsBanned());
         assertEquals(15, user.getNumAuctionsWon());
-        assertEquals(10, user.getRating());
+        assertEquals(10, user.getRating(), 0.0);
         assertEquals(20, user.getNumReviews());
     }
 
@@ -47,7 +47,7 @@ public class UserTest {
         assertTrue(user.getIsBanned());
         assertEquals(5, user.getNumReviews());
         assertEquals(1, user.getNumAuctionsWon());
-        assertEquals(3, user.getRating());
+        assertEquals(3, user.getRating(), 0.0);
     }
 
     @Test
@@ -125,15 +125,32 @@ public class UserTest {
         User user = new User(1, "america", "amer");
 
         user.setNumAuctionsWon(User.AUCTIONS_NEEDED_FOR_SILVER - 1);
-        assertTrue(User.MAX_BID_UNDEFINED == user.getMaxBid());
+        assertEquals(User.MAX_BID_UNDEFINED, user.getMaxBid(), 0.0);
 
         user.setNumAuctionsWon(User.AUCTIONS_NEEDED_FOR_SILVER);
-        assertTrue(User.MAX_BID_SILVER == user.getMaxBid());
+        assertEquals(User.MAX_BID_SILVER, user.getMaxBid(), 0.0);
 
         user.setNumAuctionsWon(User.AUCTIONS_NEEDED_FOR_GOLD);
-        assertTrue(User.MAX_BID_GOLD == user.getMaxBid());
+        assertEquals(User.MAX_BID_GOLD, user.getMaxBid(), 0.0);
 
         user.setNumAuctionsWon(User.AUCTIONS_NEEDED_FOR_PLATINUM);
-        assertTrue(User.MAX_BID_PLATINUM == user.getMaxBid());
+        assertEquals(User.MAX_BID_PLATINUM, user.getMaxBid(), 0.0);
+    }
+
+    @Test
+    public void testAddRating1() {
+        User user = new User(1, "america", "amer");
+        user.addRating(5);
+
+        assertEquals(5, user.getRating(), 0.0);
+
+        user.addRating(3);
+        assertEquals(4, user.getRating(), 0.0);
+
+        user.addRating(3);
+        assertEquals(11 / 3.0, user.getRating(), 0.0);
+
+        user.addRating(4);
+        assertEquals(15 / 4.0, user.getRating(), 0.0);
     }
 }
