@@ -2,10 +2,7 @@ package DAO;
 
 import Models.UserInfo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +87,16 @@ public class SqlUserInfoDAO implements UserInfoDAO {
         }
 
         return false;
+    }
+
+    @Override
+    public void deleteEverything() {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.execute("DELETE FROM UserInfos;");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     /**

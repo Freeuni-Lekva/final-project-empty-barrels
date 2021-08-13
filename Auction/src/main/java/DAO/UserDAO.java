@@ -45,4 +45,9 @@ public interface UserDAO {
      * @return list of users, empty list if there are no users
      */
     public List<User> getAllUsers();
+
+    /**
+     * Deletes every row in Users table
+     */
+    public void deleteEverything();
 }

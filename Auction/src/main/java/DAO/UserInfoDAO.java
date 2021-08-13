@@ -31,4 +31,9 @@ public interface UserInfoDAO {
      * @return list of UserInfo objects, empty list if there are none
      */
     public List<UserInfo> getAllUserInfos();
+
+    /**
+     * Deletes every row in UserInfos table
+     */
+    public void deleteEverything();
 }
