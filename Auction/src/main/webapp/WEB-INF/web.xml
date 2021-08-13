@@ -16,12 +16,12 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>Servlets.LoginServlet</servlet-class>
+    <servlet-name>AccountHomeServlet</servlet-name>
+    <servlet-class>Servlets.AccountHomeServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
+    <servlet-name>AccountHomeServlet</servlet-name>
     <url-pattern>/account-home</url-pattern>
   </servlet-mapping>
   
