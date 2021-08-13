@@ -6,6 +6,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/* TABLES SHOULD BE EMPTY WHEN RUNNING THESE TESTS
+ *  Or tests will empty them by themselves */
 public class SqlUserInfoDAO implements UserInfoDAO {
     private Connection connection;
 
@@ -26,9 +28,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
             if (resultSet.next()) {
                 userInfo = convertToUserInfo(resultSet);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return userInfo;
     }
@@ -44,9 +44,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
             while (resultSet.next()) {
                 userInfoList.add(convertToUserInfo(resultSet));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return userInfoList;
     }
@@ -66,11 +64,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return false;
+        } catch (SQLException throwables) { return false; }
     }
 
     @Override
@@ -82,11 +76,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return false;
+        } catch (SQLException throwables) { return false; }
     }
 
     @Override
@@ -94,9 +84,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
         try {
             Statement stmt = connection.createStatement();
             stmt.execute("DELETE FROM UserInfos;");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
     }
 
     /**
@@ -112,9 +100,7 @@ public class SqlUserInfoDAO implements UserInfoDAO {
                                     resultSet.getString(3), resultSet.getString(4),
                                     resultSet.getString(5), resultSet.getString(6),
                                     resultSet.getString(7));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return userInfo;
     }
