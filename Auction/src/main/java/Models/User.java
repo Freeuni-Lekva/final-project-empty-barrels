@@ -1,43 +1,74 @@
 package Models;
 
+import Helper.GeneralConstants;
+
 import java.util.Objects;
 
-public class User {
+public class User implements GeneralConstants {
+    /* Constants for User status */
     public static final int SILVER = 0;
     public static final int GOLD = 1;
     public static final int PLATINUM = 2;
     public static final int STATUS_UNDEFINED = -1;
 
-    private static final int AUCTIONS_NEEDED_FOR_SILVER = 0;
-    private static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
-    private static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
+    /* Constants to determine user's status
+     *  if you change these, some tests won't work */
+    public static final int AUCTIONS_NEEDED_FOR_SILVER = 0;
+    public static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
+    public static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
+
+    /* Constants to determine maximum number of possible
+     * auctions user can participate in
+     * #### THESE NUMBERS ARE SUBJECT TO CHANGE ####
+     * PUBLIC FOR TESTING*/
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_UNDEFINED = 0;
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_SILVER = 3;
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_GOLD = 10;
+    public static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_PLATINUM = 50;
+
+    public static final double MAX_BID_UNDEFINED = 0.0;
+    public static final double MAX_BID_SILVER = 1000.0;
+    public static final double MAX_BID_GOLD = 10000.0;
+    public static final double MAX_BID_PLATINUM = 100000.0;
 
     private int id;
     private int userInfoId;
     private String username;
-    private Password password;
+    private String password; // SHA-256 Hash string of user's raw password
     private boolean isDealer;
     private boolean isAdmin;
+    private boolean isBanned;
     private int numAuctionsWon;
     private double rating;
     private int numReviews;
-    private int status; // SILVER, GOLD, PLATINUM
+    private int status; // UNDEFINED, SILVER, GOLD, PLATINUM
     private int sumReviewScores;
 
-    public User(int id, int userInfoId, String username, Password password,
-                boolean isDealer, boolean isAdmin, int numAuctionsWon,
-                double rating, int numReviews) {
+    public User(int id, int userInfoId, String username, String password,
+                boolean isDealer, boolean isAdmin, boolean isBanned, int numAuctionsWon,
+                int rating, int numReviews) {
         this.id = id;
         this.userInfoId = userInfoId;
         this.username = username;
         this.password = password;
         this.isDealer = isDealer;
         this.isAdmin = isAdmin;
+        this.isBanned = isBanned;
         this.numAuctionsWon = numAuctionsWon;
         this.rating = rating;
         this.numReviews = numReviews;
         this.status = calculateStatus(numAuctionsWon);
         this.sumReviewScores = 0; // might change later
+    }
+
+    public User(int userInfoId, String username, String password,
+                boolean isDealer, boolean isAdmin, boolean isBanned, int numAuctionsWon,
+                int rating, int numReviews) {
+        this(NO_ID, userInfoId, username, password, isDealer, isAdmin, isBanned, numAuctionsWon, rating, numReviews);
+    }
+
+    public User(int userInfoId, String username, String password) {
+        this(NO_ID, userInfoId, username, password, false, false, false, 0, 0, 0);
     }
 
     public int getId() {
@@ -52,7 +83,7 @@ public class User {
         return username;
     }
 
-    public Password getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -62,6 +93,10 @@ public class User {
 
     public boolean getIsAdmin() {
         return isAdmin;
+    }
+
+    public boolean getIsBanned() {
+        return isBanned;
     }
 
     public int getNumAuctionsWon() {
@@ -92,7 +127,10 @@ public class User {
         this.username = username;
     }
 
-    public void setPassword(Password password) {
+    /**
+     * @param password Hash value of users raw password
+     */
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -102,6 +140,10 @@ public class User {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public void setIsBanned(boolean isBanned) {
+        this.isBanned = isBanned;
     }
 
     public void setNumAuctionsWon(int numAuctionsWon) {
@@ -117,13 +159,18 @@ public class User {
         this.numReviews = numReviews;
     }
 
-    // Increments numAuctionsWon by given value "increment"
+    /**
+     * Increments numAuctionsWon by given value "increment"
+     * @param increment value to add to number of won auctions
+     */
     public void incrementNumAuctionsWon(int increment) {
         this.numAuctionsWon += increment;
         this.status = calculateStatus(this.numAuctionsWon);
     }
 
-    // Increments numAuctionsWon by 1
+    /**
+     * Increments numAuctionsWon by 1
+     */
     public void incrementNumAuctionsWon() {
         incrementNumAuctionsWon(1);
     }
@@ -139,17 +186,58 @@ public class User {
         setRating((double)sumReviewScores / numReviews);
     }
 
-    // Calculates user's status using number of auctions won by user
+    /**
+     * Calculates maximum number of possible auctions user can participate in
+     * @return maximum number of possible auctions user can participate in
+     */
+    public int getNumPossibleConcurrentAuctions() {
+        int status = getStatus();
+
+        switch (status) {
+            case SILVER:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_SILVER;
+            case GOLD:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_GOLD;
+            case PLATINUM:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_PLATINUM;
+            default:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_UNDEFINED;
+        }
+    }
+
+    /**
+     * Calculates maximum bid this user can place on an item (using status)
+     * @return maximum possible bid
+     */
+    public double getMaxBid() {
+        int status = getStatus();
+
+        switch (status) {
+            case SILVER:
+                return MAX_BID_SILVER;
+            case GOLD:
+                return MAX_BID_GOLD;
+            case PLATINUM:
+                return MAX_BID_PLATINUM;
+            default:
+                return MAX_BID_UNDEFINED;
+        }
+    }
+
+    /**
+     * Calculates user's status
+     * @param numAuctionsWon number of auctions won by user
+     */
     private int calculateStatus(int numAuctionsWon) {
-        if (numAuctionsWon >= User.AUCTIONS_NEEDED_FOR_PLATINUM) {
-            return User.PLATINUM;
-        } else if (numAuctionsWon >= User.AUCTIONS_NEEDED_FOR_GOLD) {
-            return User.GOLD;
-        } else if (numAuctionsWon >= User.AUCTIONS_NEEDED_FOR_SILVER) {
-            return User.SILVER;
+        if (numAuctionsWon >= AUCTIONS_NEEDED_FOR_PLATINUM) {
+            return PLATINUM;
+        } else if (numAuctionsWon >= AUCTIONS_NEEDED_FOR_GOLD) {
+            return GOLD;
+        } else if (numAuctionsWon >= AUCTIONS_NEEDED_FOR_SILVER) {
+            return SILVER;
         }
 
-        return User.STATUS_UNDEFINED;
+        return STATUS_UNDEFINED;
     }
 
     @Override
@@ -158,8 +246,10 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
 
-        return id == user.id && userInfoId == user.userInfoId && isDealer == user.isDealer && isAdmin == user.isAdmin
-                && numAuctionsWon == user.numAuctionsWon && rating == user.rating && numReviews == user.numReviews
+        return id == user.getId() && userInfoId == user.getUserInfoId() && isDealer == user.getIsDealer()
+                && isAdmin == user.getIsAdmin() && isBanned == user.getIsBanned()
+                && numAuctionsWon == user.getNumAuctionsWon() && rating == user.getRating()
+                && numReviews == user.getNumReviews()
                 && username.equals(user.getUsername()) && password.equals(user.getPassword());
     }
 }
