@@ -47,7 +47,7 @@ public interface UserDAO {
     public List<User> getAllUsers();
 
     /**
-     * Deletes every row in Users table
+     * Deletes every row in Users store
      */
     public void deleteEverything();
 }
