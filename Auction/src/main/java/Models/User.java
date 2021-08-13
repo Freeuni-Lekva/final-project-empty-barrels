@@ -17,6 +17,19 @@ public class User implements GeneralConstants {
     private static final int AUCTIONS_NEEDED_FOR_GOLD = 10;
     private static final int AUCTIONS_NEEDED_FOR_PLATINUM = 50;
 
+    /* Constants to determine maximum number of possible
+     * auctions user can participate in
+     * #### THESE NUMBERS ARE SUBJECT TO CHANGE #### */
+    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_UNDEFINED = 0;
+    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_SILVER = 3;
+    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_GOLD = 10;
+    private static final int NUM_POSSIBLE_CONCURRENT_AUCTIONS_PLATINUM = 50;
+
+    private static final double MAX_BID_UNDEFINED = 0.0;
+    private static final double MAX_BID_SILVER = 1000.0;
+    private static final double MAX_BID_GOLD = 10000.0;
+    private static final double MAX_BID_PLATINUM = 100000.0;
+
     private int id;
     private int userInfoId;
     private String username;
@@ -27,7 +40,7 @@ public class User implements GeneralConstants {
     private int numAuctionsWon;
     private int rating;
     private int numReviews;
-    private int status; // SILVER, GOLD, PLATINUM
+    private int status; // UNDEFINED, SILVER, GOLD, PLATINUM
 
     public User(int id, int userInfoId, String username, String password,
                 boolean isDealer, boolean isAdmin, boolean isBanned, int numAuctionsWon,
@@ -145,6 +158,7 @@ public class User implements GeneralConstants {
 
     /**
      * Increments numAuctionsWon by given value "increment"
+     * @param increment value to add to number of won auctions
      */
     public void incrementNumAuctionsWon(int increment) {
         this.numAuctionsWon += increment;
@@ -159,18 +173,57 @@ public class User implements GeneralConstants {
     }
 
     /**
-     * Calculates user's status using number of auctions won by user
+     * Calculates maximum number of possible auctions user can participate in
+     * @return maximum number of possible auctions user can participate in
+     */
+    public int getNumPossibleConcurrentAuctions() {
+        int status = getStatus();
+
+        switch (status) {
+            case SILVER:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_SILVER;
+            case GOLD:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_GOLD;
+            case PLATINUM:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_PLATINUM;
+            default:
+                return NUM_POSSIBLE_CONCURRENT_AUCTIONS_UNDEFINED;
+        }
+    }
+
+    /**
+     * Calculates maximum bid this user can place on an item (using status)
+     * @return maximum possible bid
+     */
+    public double getMaxBid() {
+        int status = getStatus();
+
+        switch (status) {
+            case SILVER:
+                return MAX_BID_SILVER;
+            case GOLD:
+                return MAX_BID_GOLD;
+            case PLATINUM:
+                return MAX_BID_PLATINUM;
+            default:
+                return MAX_BID_UNDEFINED;
+        }
+    }
+
+    /**
+     * Calculates user's status
+     * @param numAuctionsWon number of auctions won by user
      */
     private int calculateStatus(int numAuctionsWon) {
-        if (numAuctionsWon >= User.AUCTIONS_NEEDED_FOR_PLATINUM) {
-            return User.PLATINUM;
-        } else if (numAuctionsWon >= User.AUCTIONS_NEEDED_FOR_GOLD) {
-            return User.GOLD;
-        } else if (numAuctionsWon >= User.AUCTIONS_NEEDED_FOR_SILVER) {
-            return User.SILVER;
+        if (numAuctionsWon >= AUCTIONS_NEEDED_FOR_PLATINUM) {
+            return PLATINUM;
+        } else if (numAuctionsWon >= AUCTIONS_NEEDED_FOR_GOLD) {
+            return GOLD;
+        } else if (numAuctionsWon >= AUCTIONS_NEEDED_FOR_SILVER) {
+            return SILVER;
         }
 
-        return User.STATUS_UNDEFINED;
+        return STATUS_UNDEFINED;
     }
 
     @Override
