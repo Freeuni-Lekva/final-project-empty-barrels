@@ -265,7 +265,7 @@ public class SqlUserDAOTest {
         lastId = SQLPK.getLastPrimaryKey(connection);
         User user11 = new User(lastId, "k", "k", false, false, false, 1, 0, 0);
 
-        
+
         sqlUserDAO.insertUser(user1);
         lastId = SQLPK.getLastPrimaryKey(connection);
         user1.setId(lastId);
