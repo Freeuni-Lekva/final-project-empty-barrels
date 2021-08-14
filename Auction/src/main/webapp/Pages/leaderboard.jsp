@@ -29,7 +29,7 @@
 
         <ol>
             <% for (User user : topUsers) { %>
-                <li class="label-2"><%=user.getUsername()%>: <%=user.getNumAuctionsWon()%></li>
+                <li> <span class="label-2-blue"><%=user.getUsername()%>: </span> <span class="score-text"><%=user.getNumAuctionsWon()%></span> </li>
                 <br>
             <% } %>
         </ol>

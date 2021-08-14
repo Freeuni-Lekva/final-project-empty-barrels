@@ -192,6 +192,18 @@
 	font-family: 'Poppins', sans-serif;
 }
 
+.label-2-blue {
+	font-size: 24px;
+	color: #725cef;
+	font-family: 'Poppins', sans-serif;
+}
+
+.score-text {
+	font-size: 24px;
+	color: #48d05c;
+	font-family: 'Poppins', sans-serif;
+}
+
 ::placeholder {
 	color: #CECECE;
 	opacity: 1;
