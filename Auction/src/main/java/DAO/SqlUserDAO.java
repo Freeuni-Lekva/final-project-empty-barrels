@@ -68,6 +68,26 @@ public class SqlUserDAO implements UserDAO {
     }
 
     @Override
+    public List<User> getTopUsers(int userCount) {
+        List<User> topUserList = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
+                    " ORDER BY auctions_won DESC" +
+                    " LIMIT ?");
+            stmt.setInt(1, userCount);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                topUserList.add(convertToUser(resultSet));
+            }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
+
+        return topUserList;
+    }
+
+    @Override
     public boolean insertUser(User user) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Users" +

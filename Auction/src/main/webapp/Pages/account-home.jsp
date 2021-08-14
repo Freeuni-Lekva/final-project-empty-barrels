@@ -21,6 +21,8 @@
 
     <a href="profile">My Profile</a>
     <br>
+    <a href="leaderboard">Leaderboard</a>
+    <br>
     <a href="logout">Logout</a>
 </body>
 </html>

@@ -200,4 +200,9 @@ public class SqlUserDAOTest {
         sqlUserDAO.deleteEverything();
         userInfoDAO.deleteEverything();
     }
+
+    @Test
+    public void test5() {
+        
+    }
 }
