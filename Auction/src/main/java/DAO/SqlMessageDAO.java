@@ -39,7 +39,7 @@ public class SqlMessageDAO implements MessageDAO{
     }
 
     @Override
-    public List<Message> getAllMessages(int userId) {
+    public List<Message> getAllMessagesForUser(int userId) {
         List<Message> messageList = new ArrayList<>();
 
         try {
@@ -60,11 +60,29 @@ public class SqlMessageDAO implements MessageDAO{
     }
 
     @Override
+    public List<Message> getAllMessages() {
+        List<Message> messageList = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Messages");
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                messageList.add(convertToMessage(resultSet));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return messageList;
+    }
+
+    @Override
     public boolean insertMessage(Message message) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Messages" +
                     "(ID, from_user_ID, to_user_ID, message, time_sent)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    "VALUES (?, ?, ?, ?, ?)");
 
             stmt.setInt(1, message.getId());
             stmt.setInt(2, message.getFromUserId());
@@ -105,7 +123,7 @@ public class SqlMessageDAO implements MessageDAO{
      */
     private Message convertToMessage(ResultSet resultSet) {
         Message result = null;
-        
+
         try {
             result = new Message(resultSet.getInt(1), resultSet.getInt(2),
                     resultSet.getInt(3), resultSet.getString(4),

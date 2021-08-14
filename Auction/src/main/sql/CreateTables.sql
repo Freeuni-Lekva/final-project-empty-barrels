@@ -48,8 +48,8 @@ CREATE TABLE Reviews(
     ID                INT NOT NULL AUTO_INCREMENT,
     reviewer_ID       INT NOT NULL,
     recipient_ID      INT NOT NULL,
-    review            VARCHAR(500), --  reviews will have a character limit of 500 (can be empty)
     score             INT NOT NULL,
+    review            VARCHAR(500), --  reviews will have a character limit of 500 (can be empty)
     PRIMARY KEY (ID),
     FOREIGN KEY (reviewer_ID) REFERENCES Users(ID),
     FOREIGN KEY (recipient_ID) REFERENCES Users(ID)

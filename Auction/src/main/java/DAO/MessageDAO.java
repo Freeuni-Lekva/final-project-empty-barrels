@@ -30,5 +30,11 @@ public interface MessageDAO {
      * Gets every message sent to user
      * @return list of messages, empty list if there are no messages
      */
-    public List<Message> getAllMessages(int userId);
+    public List<Message> getAllMessagesForUser(int userId);
+
+    /**
+     * Gets every message
+     * @return list of messages, empty list if there are no messages
+     */
+    public List<Message> getAllMessages();
 }
