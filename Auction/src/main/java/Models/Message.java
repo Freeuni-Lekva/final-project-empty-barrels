@@ -1,6 +1,8 @@
 package Models;
 
 import Helper.GeneralConstants;
+
+import java.sql.Timestamp;
 import java.util.*;
 
 public class Message implements GeneralConstants{
@@ -9,9 +11,9 @@ public class Message implements GeneralConstants{
     private int fromUserId;
     private int toUserId;
     private String message;
-    private String timeSent;
+    private Timestamp timeSent;
 
-    public Message(int id , int fromUserId , int toUserId , String message,String time_sent) {
+    public Message(int id , int fromUserId , int toUserId , String message,Timestamp time_sent) {
         this.id = id;
         this.fromUserId=fromUserId;
         this.toUserId=toUserId;
@@ -19,7 +21,7 @@ public class Message implements GeneralConstants{
         this.timeSent=time_sent;
     }
 
-    public Message(int fromUserId,int toUserId,String message, String time_sent) {
+    public Message(int fromUserId,int toUserId,String message, Timestamp time_sent) {
         this(NO_ID,fromUserId,toUserId,message,time_sent);
     }
 
@@ -39,7 +41,7 @@ public class Message implements GeneralConstants{
         return message;
     }
 
-    public String getTimeSent() {
+    public Timestamp getTimeSent() {
         return timeSent;
     }
 
@@ -59,7 +61,7 @@ public class Message implements GeneralConstants{
         this.message=message;
     }
 
-    public void setTimeSent(String timeSent) {
+    public void setTimeSent(Timestamp timeSent) {
         this.timeSent=timeSent;
     }
 
