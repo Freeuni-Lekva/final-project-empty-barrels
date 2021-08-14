@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<!DOCTYPE html>--%>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -26,17 +26,15 @@
                 <button class="button-login">Login</button>
                 <br>
                 <a class="h4-link" href="create-account">Create New Account</a>
+                <br>
+                <span>
+                    <%  String errorMessage = (String)request.getAttribute("message");
+                        if (errorMessage != null) { %>
+                    <span class="error-text"><%=errorMessage%></span>
+                    <%  } %>
+                </span>
             </div>
         </form>
-
-        <br>
-        <span>
-        <%  String errorMessage = (String)request.getAttribute("message");
-            if (errorMessage != null) { %>
-                <span><%=errorMessage%></span>
-        <%  } %>
-        </span>
     </div>
 </body>
 </html>
->>>>>>> InvalidCredentials
