@@ -45,5 +45,14 @@
         <br>
         <button>Create Account</button>
     </form>
+
+    <a href="logout">Back to login</a>
+    <br>
+    <span>
+        <%  String errorMessage = (String)request.getAttribute("message");
+            if (errorMessage != null) { %>
+                <span><%=errorMessage%></span>
+        <%  } %>
+    </span>
 </body>
 </html>
