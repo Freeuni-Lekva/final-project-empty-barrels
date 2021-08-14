@@ -68,6 +68,26 @@ public class SqlUserDAO implements UserDAO {
     }
 
     @Override
+    public List<User> getTopUsers(int userCount) {
+        List<User> topUserList = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
+                    " ORDER BY auctions_won DESC" +
+                    " LIMIT ?");
+            stmt.setInt(1, userCount);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                topUserList.add(convertToUser(resultSet));
+            }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
+
+        return topUserList;
+    }
+
+    @Override
     public boolean insertUser(User user) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Users" +
@@ -81,7 +101,7 @@ public class SqlUserDAO implements UserDAO {
             stmt.setBoolean(5, user.getIsAdmin());
             stmt.setBoolean(6, user.getIsBanned());
             stmt.setInt(7, user.getNumAuctionsWon());
-            stmt.setInt(8, user.getRating());
+            stmt.setDouble(8, user.getRating());
             stmt.setInt(9, user.getNumReviews());
             int numRowsAffected = stmt.executeUpdate();
 

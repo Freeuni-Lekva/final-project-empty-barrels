@@ -39,25 +39,23 @@ public class AccountHomeServlet extends HttpServlet implements GeneralConstants 
         String passwordHash = Hasher.hash(password);
 
         ServletContext servletContext = getServletContext();
+        HttpSession session = request.getSession();
         UserService userService = (UserService)servletContext.getAttribute(USER_SERVICE);
         UserDAO userDAO = userService.getUserDAO();
         UserInfoDAO userInfoDAO = userService.getUserInfoDAO();
         User foundUser = userDAO.getUser(username);
 
         if (foundUser == null) {
-            // TODO: Notify user on the webpage
-            System.out.println("User doesn't exist");
-            response.sendRedirect("");
+            request.setAttribute(MESSAGE_STRING, ERROR_INVALID_USER_NAME);
+            request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
         } else if (!passwordHash.equals(foundUser.getPassword())) {
-            // TODO: Notify user on the webpage
-            System.out.println("Invalid password");
-            response.sendRedirect("");
+            request.setAttribute(MESSAGE_STRING, ERROR_INVALID_PASSWORD);
+            request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
         } else {
             // Successful login
             int userInfoId = foundUser.getUserInfoId();
             UserInfo foundUserInfo = userInfoDAO.getUserInfo(userInfoId);
 
-            HttpSession session = request.getSession();
             session.setAttribute(CURRENT_USER_STRING, foundUser);
             session.setAttribute(CURRENT_USER_INFO_STRING, foundUserInfo);
 

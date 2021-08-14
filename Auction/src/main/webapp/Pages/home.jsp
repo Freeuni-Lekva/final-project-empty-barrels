@@ -28,7 +28,15 @@
                 <a class="h4-link" href="create-account">Create New Account</a>
             </div>
         </form>
-    </div>
 
-    </body>
+        <br>
+        <span>
+        <%  String errorMessage = (String)request.getAttribute("message");
+            if (errorMessage != null) { %>
+                <span><%=errorMessage%></span>
+        <%  } %>
+        </span>
+    </div>
+</body>
 </html>
+>>>>>>> InvalidCredentials

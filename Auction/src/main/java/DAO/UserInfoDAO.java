@@ -33,7 +33,7 @@ public interface UserInfoDAO {
     public List<UserInfo> getAllUserInfos();
 
     /**
-     * Deletes every row in UserInfos table
+     * Deletes every row in UserInfos store
      */
     public void deleteEverything();
 }

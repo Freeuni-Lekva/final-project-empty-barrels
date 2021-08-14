@@ -28,6 +28,8 @@
 
     <a class="h4-link" href="profile">My Profile</a>
     <br>
+    <a href="leaderboard">Leaderboard</a>
+    <br>
     <a class="h4-link" href="logout">Logout</a>
 </body>
 </html>
