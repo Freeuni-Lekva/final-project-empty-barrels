@@ -7,6 +7,15 @@
 	width: 378px;
 }
 
+.profile-name {
+	font-size: 60px;
+	color: #5863F8;
+	margin-bottom: 20px;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 900;
+	width: 700px;
+}
+
 .h2 {
 	font-size: 34px;
 	color: #5863F8;
@@ -24,11 +33,30 @@
 }
 
 .h4 {
-	font-size: 14px;
+	font-size: 20px;
 	color: #5863F8;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 800;
 	margin-bottom: 8px;
+}
+
+.h4-link {
+	font-size: 23px;
+	color: #5863F8;
+	text-decoration: underline;
+	text-decoration-color: black;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
+}
+
+.h4-link-2 {
+	letter-spacing: 1px;
+	font-size: 23px;
+	color: #5863F8;
+	text-decoration: underline;
+	text-decoration-color: black;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 800;
 }
 
 .main-div {
@@ -57,7 +85,7 @@
 	        justify-content: space-between;
 }
 
-input {
+.input-1 {
 	width: 352px;
 	height: 60px;
 	font-size: 18px;
@@ -69,13 +97,7 @@ input {
 	font-family: 'Poppins', sans-serif;
 }
 
-button:hover {
-	background-color: #ffffff;
-	color: #5863F8;
-	font-size: 27px;
-}
-
-button {
+.button-login {
 	width: 352px;
 	height: 60px;
 	background-color: #5863F8;
@@ -85,6 +107,12 @@ button {
 	cursor: pointer;
 	font-family: 'Poppins', sans-serif;
 	transition: background-color 300ms ease-out 50ms, color 300ms, font-size 300ms;
+}
+
+.button-login:hover {
+	background-color: #ffffff;
+	color: #5863F8;
+	font-size: 27px;
 }
 
 .form-wrapper {
@@ -98,6 +126,25 @@ button {
 	-webkit-box-pack: justify;
 	    -ms-flex-pack: justify;
 	        justify-content: space-between;
+}
+
+.list-a {
+	list-style-type: none;
+	line-height: 1.5;
+}
+
+.label-1 {
+	letter-spacing: 1px;
+	opacity: 0.7;
+	font-size: 24px;
+	color: #000000;
+	font-family: 'Poppins', sans-serif;
+}
+
+.label-2 {
+	font-size: 24px;
+	color: #000000;
+	font-family: 'Poppins', sans-serif;
 }
 
 ::placeholder {

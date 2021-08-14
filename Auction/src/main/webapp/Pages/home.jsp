@@ -19,13 +19,13 @@
         <form class="form-box" action="account-home" method="post">
             <div class="form-wrapper">
                 <h2 class="h2">Please log in.</h2> <br>
-                <input type="text" id="username-input" name="username" placeholder="username">
+                <input class="input-1" type="text" id="username-input" name="username" placeholder="username">
                 <br>
-                <input type="password" id="password-input" name="password" placeholder="•••••••">
+                <input class="input-1" type="password" id="password-input" name="password" placeholder="•••••••">
                 <br>
-                <button>Login</button>
+                <button class="button-login">Login</button>
                 <br>
-                <a class="h3" href="create-account">Create New Account</a>
+                <a class="h4-link" href="create-account">Create New Account</a>
             </div>
         </form>
     </div>
