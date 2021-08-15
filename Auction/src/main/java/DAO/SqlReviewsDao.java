@@ -1,6 +1,7 @@
 package DAO;
 
 import Models.Review;
+import Models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,8 +53,10 @@ public class SqlReviewsDao implements ReviewsDAO{
             stmt.setString(4, review.getReview());
 
             int numRowsAffected = stmt.executeUpdate();
+            SqlUserDAO userDao = new SqlUserDAO(connection);
+            boolean ans = userDao.updateRecipientRating(review.getScore(), review.getRecipientId());
 
-            return numRowsAffected == 1;
+            return numRowsAffected == 1 && ans;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

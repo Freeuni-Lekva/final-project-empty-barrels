@@ -194,4 +194,30 @@ public class SqlUserDAO implements UserDAO {
 
         return result;
     }
+
+    public boolean updateRecipientRating(int score, int recipient_id){
+        User user = getUser(recipient_id);
+        if (user == null){
+            return false;
+        }
+
+        double totalScore = user.getRating() * user.getNumReviews();
+        totalScore += score;
+        int newNumReviews = user.getNumReviews() + 1;
+        double newRating = totalScore / newNumReviews;
+        try {
+            StringBuilder builder = new StringBuilder("update Users SET rating = ");
+            builder.append(newRating);
+            builder.append(", num_reviews = ");
+            builder.append(newNumReviews);
+            builder.append(" where ID = ");
+            builder.append(recipient_id);
+            builder.append(" ;");
+
+            PreparedStatement stmt = connection.prepareStatement(builder.toString());
+            int numRowsAffected = stmt.executeUpdate();
+
+            return numRowsAffected == 1;
+        } catch (SQLException throwables) { return false; }
+    }
 }
