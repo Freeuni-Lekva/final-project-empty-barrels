@@ -31,8 +31,13 @@
         <br>
         <a class="h4-link" href="leaderboard">Leaderboard</a>
         <br>
-        <a class="h4-link" href="auctions">Auctions</a>
-        <br>
+        <% if(currentUser.getIsAdmin()){ %>
+            <a class="h4-link" href="auctions">Auctions</a>
+            <br>
+            <a class="h4-link" href="allusers">All Users</a>
+            <br>
+        <% } %>
+
         <a class="h4-link" href="logout">Logout</a>
     </div>
 </body>

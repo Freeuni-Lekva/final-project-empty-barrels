@@ -44,6 +44,7 @@ public class ContextListener implements ServletContextListener, GeneralConstants
             ServletContext servletContext = servletContextEvent.getServletContext();
             servletContext.setAttribute(USER_SERVICE, userService);
             servletContext.setAttribute(SqlAuctionDAO.AUCTIONDAO_STR, sqlAuctionDAO);
+            servletContext.setAttribute(SqlUserDAO.ATTRIBUTE_NAME, userDAO);
 
         } catch (Exception e) {
             e.printStackTrace();
