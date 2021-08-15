@@ -3,7 +3,6 @@ package Servlets;
 import DAO.UserDAO;
 import Helper.SessionHelper;
 import Models.User;
-import Models.UserInfo;
 import Services.UserService;
 
 import javax.servlet.ServletContext;
@@ -17,16 +16,13 @@ import java.io.IOException;
 
 import static Helper.GeneralConstants.*;
 
-@WebServlet(name = "BanUserServlet", urlPatterns = {"/BanUserServlet"})
-public class BanUserServlet extends HttpServlet {
-
-    public BanUserServlet(){ super(); }
+@WebServlet(name = "MakeAdminUserServlet", urlPatterns = {"/MakeAdminUserServlet"})
+public class MakeAdminUserServlet extends HttpServlet {
+    public MakeAdminUserServlet(){ super(); }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
-
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,16 +34,17 @@ public class BanUserServlet extends HttpServlet {
             response.sendRedirect("");
             return;
         }
+
         ServletContext servletContext = getServletContext();
         UserService userService = (UserService)servletContext.getAttribute(USER_SERVICE);
         UserDAO userDAO = userService.getUserDAO();
 
-        String username = request.getParameter("userToBan");
+        String username = request.getParameter("userToAdmin");
         User foundUser = userDAO.getUser(username);
         if (foundUser != null){
-            userDAO.banUser(username);
+            userDAO.makeAdminUser(username);
             response.sendRedirect(request.getContextPath() + "/allusers");
-        } else{
+        }else{
             request.setAttribute(MESSAGE_STRING, "User with given username does not exist.");
             request.getRequestDispatcher("Pages/all-users.jsp").forward(request, response);
         }

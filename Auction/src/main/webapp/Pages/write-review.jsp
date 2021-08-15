@@ -34,6 +34,7 @@
                 </span>
             </div>
         </form>
+        <a class="h4-link-2" style="margin-top: 100px;" href="account-home">Back</a>
     </div>
 </body>
 </html>
