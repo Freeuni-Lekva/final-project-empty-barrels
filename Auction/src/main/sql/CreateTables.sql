@@ -54,3 +54,38 @@ CREATE TABLE Reviews(
     FOREIGN KEY (reviewer_ID) REFERENCES Users(ID),
     FOREIGN KEY (recipient_ID) REFERENCES Users(ID)
 );
+
+CREATE TABLE Items(
+  ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name         		VARCHAR(100) NOT NULL,
+  description		TEXT DEFAULT NULL,
+  image_name		TEXT DEFAULT NULL,
+  buyout_price		INT UNSIGNED NOT NULL
+);
+
+
+CREATE TABLE Auctions(
+  ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  seller_ID     	INT NOT NULL,
+  item_ID        	INT NOT NULL,
+  current_bidder_ID INT NOT NULL,
+  starting_price	INT UNSIGNED NOT NULL,
+  min_increment		INT UNSIGNED NOT NULL,
+  end_time			timestamp NULL DEFAULT NULL,
+  current_price		INT UNSIGNED NOT NULL,
+
+  FOREIGN KEY (seller_id) REFERENCES Users(ID),
+  FOREIGN KEY (current_bidder_ID) REFERENCES Users(ID),
+  FOREIGN KEY (item_ID) REFERENCES Items(ID)
+);
+
+
+CREATE TABLE Bidder_Auctions(
+  ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  bidder_ID     	INT NOT NULL,
+  auction_ID        INT NOT NULL,
+  bid				INT UNSIGNED NOT NULL,
+
+  FOREIGN KEY (bidder_ID) REFERENCES Users(ID),
+  FOREIGN KEY (auction_ID) REFERENCES Auctions(ID)
+);
