@@ -1,9 +1,13 @@
 package Servlets;
 
+
+import DAO.UserDAO;
 import Helper.SessionHelper;
 import Models.User;
 import Models.UserInfo;
+import Services.UserService;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,14 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static Helper.GeneralConstants.CURRENT_USER_INFO_STRING;
-import static Helper.GeneralConstants.CURRENT_USER_STRING;
+import static Helper.GeneralConstants.*;
 
-
-@WebServlet(name = "AuctionsServlet", urlPatterns = {"/auctions"})
-public class AuctionsServlet  extends HttpServlet {
-
-    public AuctionsServlet(){ super(); }
+@WebServlet(name = "AllUsersServlet", urlPatterns = {"/allusers"})
+public class AllUsersServlet extends HttpServlet {
+    public AllUsersServlet(){ super(); }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +33,7 @@ public class AuctionsServlet  extends HttpServlet {
             response.sendRedirect("");
             return;
         }
-        request.getRequestDispatcher("Pages/auctions.jsp").forward(request, response);
+        request.getRequestDispatcher("Pages/all-users.jsp").forward(request, response);
     }
 
     @Override

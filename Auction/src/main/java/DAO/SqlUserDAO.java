@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlUserDAO implements UserDAO {
+    public final static String ATTRIBUTE_NAME = "SQL_USER_DAO";
     private Connection connection;
 
     public SqlUserDAO(Connection connection) {
@@ -128,6 +129,17 @@ public class SqlUserDAO implements UserDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM Users" +
                     " WHERE BINARY user_name=?;");
+            stmt.setString(1, username);
+            int numRowsAffected = stmt.executeUpdate();
+
+            return numRowsAffected == 1;
+        } catch (SQLException throwables) { return false; }
+    }
+
+    @Override
+    public boolean banUser(String username) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("update users set is_banned = 1 where (user_name=?);");
             stmt.setString(1, username);
             int numRowsAffected = stmt.executeUpdate();
 

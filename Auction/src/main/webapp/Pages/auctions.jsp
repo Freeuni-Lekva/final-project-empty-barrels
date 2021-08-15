@@ -12,43 +12,57 @@
 %>
 <html>
 <head>
-    <title>Auctions</title>
-    <style>
-          table,
-          th,
-          td {
-            padding: 10px;
-            border: 1px solid black;
-            border-collapse: collapse;
-          }
-    </style>
+    <meta charset="utf-8">
+            <title>Auctions</title>
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+            <script src="https://kit.fontawesome.com/a8ba60cbab.js" crossorigin="anonymous"></script>
+            <link rel="stylesheet" type="text/css" href="../Styles/reset.css">
+            <link rel="stylesheet" type="text/css" href="../Styles/style.css">
+            <title>Auctions</title>
+                <style>
+                      table,
+                      th,
+                      td {
+                        padding: 10px;
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                      }
+                </style>
 </head>
 <body>
-        <h1>Auctions</h1>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>seller ID</th>
-              <th>item ID</th>
-              <th>starting price</th>
-              <th>min increment</th>
-              <th>end time</th>
-              <th>current price</th>
-            </tr>
-           </thead>
-           <tbody>
+    <div class="main-div">
+        <h2 class="profile-name">Auctions</h2>
 
-            <%
-                    SqlAuctionDAO auctionDao = (SqlAuctionDAO)application.getAttribute("AUCTION_DAO_STR_UNIQUE");
-                    for (Auction auc : auctionDao.getAllAuctions()){
-                        out.println("<tr><td>"+auc.getId()+"</td><td>"+auc.getSeller_id()+"</td><td>"+auc.getItem_id()+"</td><td>"+auc.getStarting_price()+"</td><td>"+auc.getMin_increment()+"</td><td>"+auc.getEnd_date()+"</td><td>"+auc.getCurrent_price()+"</td></tr>");
-                    }
-            %>
-          </tbody>
-        </table>
+        <div>
+            <table border="1">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>seller ID</th>
+                  <th>item ID</th>
+                  <th>starting price</th>
+                  <th>min increment</th>
+                  <th>end time</th>
+                  <th>current price</th>
+                </tr>
+               </thead>
+               <tbody>
 
-    <br>
-    <a href="account-home">Back</a>
+                <%
+                        SqlAuctionDAO auctionDao = (SqlAuctionDAO)application.getAttribute("AUCTION_DAO_STR_UNIQUE");
+                        for (Auction auc : auctionDao.getAllAuctions()){
+                            out.println("<tr><td>"+auc.getId()+"</td><td>"+auc.getSeller_id()+"</td><td>"+auc.getItem_id()+"</td><td>"+auc.getStarting_price()+"</td><td>"+auc.getMin_increment()+"</td><td>"+auc.getEnd_date()+"</td><td>"+auc.getCurrent_price()+"</td></tr>");
+                        }
+                %>
+              </tbody>
+            </table>
+        </div>
+
+        <br>
+        <a class="h4-link-2" href="account-home">Back</a>
+    </div>
 </body>
 </html>
