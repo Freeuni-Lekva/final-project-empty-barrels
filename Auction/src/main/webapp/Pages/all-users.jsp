@@ -69,6 +69,25 @@
                 <input type="submit" value="Ban User" style="margin-left: -135px"/>
             </form>
 
+            <form class="form-box" action="MakeDealerUserServlet" method="post" style="margin-top: 50px;">
+                <h3 class="h3">Enter account to make Dealer</h3>
+                <br>
+                <input class="input-2" type="text" name="userToDealer" placeholder="Enter username to make dealer">
+                <input type="submit" value="Make User Dealer" style="margin-left: -135px"/>
+            </form>
+
+            <form class="form-box" action="MakeAdminUserServlet" method="post" style="margin-top: 50px;">
+                <h3 class="h3">Enter account to make Admin</h3>
+                <br>
+                <input class="input-2" type="text" name="userToAdmin" placeholder="Enter username to make admin">
+                <input type="submit" value="Make User Admin" style="margin-left: -135px"/>
+            </form>
+            <span>
+                <%  String errorMessage = (String)request.getAttribute("message");
+                    if (errorMessage != null) { %>
+                <span class="error-text"><%=errorMessage%></span>
+                <%  } %>
+            </span>
             <br>
             <a class="h4-link-2" href="account-home">Back</a>
         </div>

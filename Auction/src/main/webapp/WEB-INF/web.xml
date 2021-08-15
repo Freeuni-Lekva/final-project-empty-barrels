@@ -65,6 +65,16 @@
     <url-pattern>/leaderboard</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>WriteReviewServlet</servlet-name>
+    <servlet-class>Servlets.WriteReviewServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>WriteReviewServlet</servlet-name>
+    <url-pattern>/write-review</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>Listeners.ContextListener</listener-class>
   </listener>

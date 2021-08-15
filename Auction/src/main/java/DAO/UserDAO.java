@@ -48,6 +48,20 @@ public interface UserDAO {
     public boolean banUser(String username);
 
     /**
+     * makes dealer with the given username
+     * @param username
+     * @return true if user was made dealer, false otherwise
+     */
+    public boolean makeDealerUser(String username);
+
+    /**
+     * makes admin with the given username
+     * @param username
+     * @return true if user was made admin, false otherwise
+     */
+    public boolean makeAdminUser(String username);
+
+    /**
      * Gets every User from store
      * @return list of users, empty list if there are no users
      */

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlReviewsDao implements ReviewsDAO{
+    public static final String ATTRIBUTE_NAME = "SQL_REVIEWS_DAO";
     private Connection connection;
 
     public SqlReviewsDao(Connection connection) {
@@ -41,14 +42,14 @@ public class SqlReviewsDao implements ReviewsDAO{
     public boolean insertReview(Review review){
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Reviews" +
-                    "(ID, reviewer_ID, recipient_ID, score, review)" +
-                    "VALUES (?, ?, ?, ?, ?)");
+                    "(reviewer_ID, recipient_ID, score, review)" +
+                    "VALUES (?, ?, ?, ?)");
 
-            stmt.setInt(1, review.getId());
-            stmt.setInt(2, review.getReviewerId());
-            stmt.setInt(3, review.getRecipientId());
-            stmt.setInt(4, review.getScore());
-            stmt.setString(5, review.getReview());
+//            stmt.setInt(1, review.getId());
+            stmt.setInt(1, review.getReviewerId());
+            stmt.setInt(2, review.getRecipientId());
+            stmt.setInt(3, review.getScore());
+            stmt.setString(4, review.getReview());
 
             int numRowsAffected = stmt.executeUpdate();
 

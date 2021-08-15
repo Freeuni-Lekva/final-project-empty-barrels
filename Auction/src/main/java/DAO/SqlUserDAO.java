@@ -148,6 +148,27 @@ public class SqlUserDAO implements UserDAO {
     }
 
     @Override
+    public boolean makeDealerUser(String username) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("update users set is_dealer = 1 where (user_name=?);");
+            stmt.setString(1, username);
+            int numRowsAffected = stmt.executeUpdate();
+            return numRowsAffected == 1;
+        } catch (SQLException throwables) { return false; }
+    }
+
+    @Override
+    public boolean makeAdminUser(String username) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("update users set is_admin = 1 where (user_name=?);");
+            stmt.setString(1, username);
+            int numRowsAffected = stmt.executeUpdate();
+            return numRowsAffected == 1;
+        } catch (SQLException throwables) { return false; }
+    }
+
+
+    @Override
     public void deleteEverything() {
         try {
             Statement stmt = connection.createStatement();
