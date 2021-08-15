@@ -2,10 +2,7 @@ package DAO;
 
 import Models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +27,7 @@ public class SqlUserDAO implements UserDAO {
             if (resultSet.next()) {
                 user = convertToUser(resultSet);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return user;
     }
@@ -43,7 +38,7 @@ public class SqlUserDAO implements UserDAO {
 
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
-                                                                 " WHERE user_name=?;");
+                                                                 " WHERE BINARY user_name=?;");
 
             stmt.setString(1, username);
             ResultSet resultSet = stmt.executeQuery();
@@ -51,9 +46,7 @@ public class SqlUserDAO implements UserDAO {
             if (resultSet.next()) {
                 user = convertToUser(resultSet);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return user;
     }
@@ -69,9 +62,7 @@ public class SqlUserDAO implements UserDAO {
             while (resultSet.next()) {
                 userList.add(convertToUser(resultSet));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return userList;
     }
@@ -96,10 +87,8 @@ public class SqlUserDAO implements UserDAO {
 
             return numRowsAffected == 1;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 
     @Override
@@ -111,27 +100,27 @@ public class SqlUserDAO implements UserDAO {
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return false;
+        } catch (SQLException throwables) { return false; }
     }
 
     @Override
     public boolean removeUser(String username) {
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM Users" +
-                    " WHERE user_name=?;");
+                    " WHERE BINARY user_name=?;");
             stmt.setString(1, username);
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { return false; }
+    }
 
-        return false;
+    @Override
+    public void deleteEverything() {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.execute("DELETE FROM Users;");
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
     }
 
     /**
@@ -148,9 +137,7 @@ public class SqlUserDAO implements UserDAO {
                               resultSet.getBoolean(5), resultSet.getBoolean(6),
                               resultSet.getBoolean(7), resultSet.getInt(8),
                               resultSet.getInt(9), resultSet.getInt(10));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return result;
     }
