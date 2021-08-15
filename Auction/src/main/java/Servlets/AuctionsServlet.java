@@ -25,8 +25,10 @@ public class AuctionsServlet  extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         boolean userExists = SessionHelper.checkIfUserExists(session);
+        User currentUser = (User)session.getAttribute(CURRENT_USER_STRING);
+        UserInfo currentUserInfo = (UserInfo)session.getAttribute(CURRENT_USER_INFO_STRING);
 
-        if (!userExists) {
+        if (!userExists || !currentUser.getIsAdmin()) {
             response.sendRedirect("");
             return;
         }
