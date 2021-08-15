@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlUserDAO implements UserDAO {
+    public final static String ATTRIBUTE_NAME = "SQL_USER_DAO";
     private Connection connection;
 
     public SqlUserDAO(Connection connection) {
