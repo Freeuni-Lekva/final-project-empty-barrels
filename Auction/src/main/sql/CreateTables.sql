@@ -12,13 +12,13 @@ CREATE TABLE UserInfos(
 CREATE TABLE Users(
   ID                INT NOT NULL AUTO_INCREMENT,
   user_info_ID      INT NOT NULL,
-  user_name         VARCHAR(100) NOT NULL UNIQUE,
+  user_name         VARCHAR(100) BINARY NOT NULL UNIQUE,
   password          VARCHAR(80) NOT NULL, -- 100 because we will save SHA-256 HASHes (they are 64-char long)
   is_dealer         BOOLEAN NOT NULL DEFAULT FALSE,
   is_admin          BOOLEAN NOT NULL DEFAULT FALSE,
   is_banned         BOOLEAN NOT NULL DEFAULT FALSE,
   auctions_won      INT NOT NULL DEFAULT 0,
-  rating            INT NOT NULL DEFAULT 0,
+  rating            DOUBLE PRECISION NOT NULL DEFAULT 0,
   num_reviews       INT NOT NULL DEFAULT 0,
   PRIMARY KEY (ID),
   FOREIGN KEY (user_info_ID) REFERENCES UserInfos(ID)
@@ -29,7 +29,7 @@ CREATE TABLE Messages(
     from_user_ID      INT NOT NULL,
     to_user_ID        INT NOT NULL,
     message           VARCHAR(500) NOT NULL, -- every message will have a character limit of 500
-    time_sent         TIME,
+    time_sent         TIMESTAMP,
     PRIMARY KEY (ID),
     FOREIGN KEY (from_user_ID) REFERENCES Users(ID),
     FOREIGN KEY (to_user_ID) REFERENCES Users(ID)
@@ -48,8 +48,8 @@ CREATE TABLE Reviews(
     ID                INT NOT NULL AUTO_INCREMENT,
     reviewer_ID       INT NOT NULL,
     recipient_ID      INT NOT NULL,
-    review            VARCHAR(500), --  reviews will have a character limit of 500 (can be empty)
     score             INT NOT NULL,
+    review            VARCHAR(500), --  reviews will have a character limit of 500 (can be empty)
     PRIMARY KEY (ID),
     FOREIGN KEY (reviewer_ID) REFERENCES Users(ID),
     FOREIGN KEY (recipient_ID) REFERENCES Users(ID)

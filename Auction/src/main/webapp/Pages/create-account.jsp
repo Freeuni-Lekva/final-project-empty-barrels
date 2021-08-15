@@ -8,42 +8,54 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Create Account</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a8ba60cbab.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../Styles/reset.css">
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css">
 </head>
 <body>
-    <h1>Create new account</h1>
-    <form action="create-account" method="post">
-        Account Details
-        <br>
-        <label for="username-input">Username: </label>
-        <input type="text" id="username-input" name="username">
-        <br>
-        <label for="password-input">Password: </label>
-        <input type="password" id="password-input" name="password">
-        <br>
-        <label for="password-repeat-input">Repeat password: </label>
-        <input type="password" id="password-repeat-input" name="password-repeat">
-        <br>
-        <label for="firstname-input">First Name: </label>
-        <input type="text" id="firstname-input" name="firstname">
-        <br>
-        <label for="lastname-input">Last Name: </label>
-        <input type="text" id="lastname-input" name="lastname">
-        <br>
-        <label for="email-input">Email: </label>
-        <input type="text" id="email-input" name="email">
-        <br>
-        <label for="address-input">Address: </label>
-        <input type="text" id="address-input" name="address">
-        <br>
-        <label for="phonenumber-input">Phone Number: </label>
-        <input type="text" id="phonenumber-input" name="phonenumber">
-        <br>
-        <label for="note-input">Note: </label>
-        <input type="text" id="note-input" name="note">
-        <br>
-        <br>
-        <button>Create Account</button>
-    </form>
+    <div class="main-div">
+        <h1 class="h1-wider">Create new account</h1>
+
+        <form class="form-box" action="create-account" method="post">
+            <div class="form-wrapper">
+                <h3 class="h3">Account Details</h3>
+                <br>
+                <input class="input-2" type="text" id="username-input" name="username" placeholder="username">
+                <br>
+                <input class="input-2" type="password" id="password-input" name="password" placeholder="•••••••">
+                <br>
+                <input class="input-2" type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password">
+                <br>
+                <input class="input-2" type="text" id="firstname-input" name="firstname" placeholder="first name">
+                <br>
+                <input class="input-2" type="text" id="lastname-input" name="lastname" placeholder="last name">
+                <br>
+                <input class="input-2" type="text" id="email-input" name="email" placeholder="email">
+                <br>
+                <input class="input-2" type="text" id="address-input" name="address" placeholder="address">
+                <br>
+                <input class="input-2" type="text" id="phonenumber-input" name="phonenumber" placeholder="phone number">
+                <br>
+                <input class="input-2" type="text" id="note-input" name="note" placeholder="note">
+                <br>
+                <button class="button-create-account">Create Account</button>
+                <br>
+                <a class="h4-link" href="logout">Back to login</a>
+                <br>
+                <span>
+                    <%  String errorMessage = (String)request.getAttribute("message");
+                        if (errorMessage != null) { %>
+                    <span class="error-text"><%=errorMessage%></span>
+                    <%  } %>
+                </span>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
