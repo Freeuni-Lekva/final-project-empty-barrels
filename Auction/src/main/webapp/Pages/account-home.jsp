@@ -37,6 +37,7 @@
             <a class="h4-link" href="allusers">All Users</a>
             <br>
         <% } %>
+
         <a class="h4-link" href="logout">Logout</a>
     </div>
 </body>
