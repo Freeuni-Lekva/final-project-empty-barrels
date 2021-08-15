@@ -41,6 +41,13 @@ public interface UserDAO {
     public boolean removeUser(String username);
 
     /**
+     * Bans user with the given username
+     * @param username
+     * @return true if user was banned, false otherwise
+     */
+    public boolean banUser(String username);
+
+    /**
      * Gets every User from store
      * @return list of users, empty list if there are no users
      */

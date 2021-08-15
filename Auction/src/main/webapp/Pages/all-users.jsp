@@ -26,6 +26,10 @@
                     border: 1px solid black;
                     border-collapse: collapse;
                   }
+
+                  form {
+                    margin-top: 100px;
+                  }
             </style>
     </head>
     <body>
@@ -57,6 +61,13 @@
                     </tbody>
                 </table>
             </div>
+
+            <form class="form-box" action="BanUserServlet" method="post">
+                <h3 class="h3">Enter account to ban</h3>
+                <br>
+                <input class="input-2" type="text" name="userToBan" placeholder="Enter username to ban">
+                <input type="submit" value="Ban User" style="margin-left: -135px"/>
+            </form>
 
             <br>
             <a class="h4-link-2" href="account-home">Back</a>

@@ -1,6 +1,5 @@
 package Servlets;
 
-
 import DAO.UserDAO;
 import Helper.SessionHelper;
 import Models.User;
@@ -18,26 +17,33 @@ import java.io.IOException;
 
 import static Helper.GeneralConstants.*;
 
-@WebServlet(name = "AllUsersServlet", urlPatterns = {"/allusers"})
-public class AllUsersServlet extends HttpServlet {
-    public AllUsersServlet(){ super(); }
+@WebServlet(name = "BanUserServlet", urlPatterns = {"/BanUserServlet"})
+public class BanUserServlet extends HttpServlet {
+
+    public BanUserServlet(){ super(); }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    }
+
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         boolean userExists = SessionHelper.checkIfUserExists(session);
         User currentUser = (User)session.getAttribute(CURRENT_USER_STRING);
-        UserInfo currentUserInfo = (UserInfo)session.getAttribute(CURRENT_USER_INFO_STRING);
 
         if (!userExists || !currentUser.getIsAdmin()) {
             response.sendRedirect("");
             return;
         }
-        request.getRequestDispatcher("Pages/all-users.jsp").forward(request, response);
-    }
+        ServletContext servletContext = getServletContext();
+        UserService userService = (UserService)servletContext.getAttribute(USER_SERVICE);
+        UserDAO userDAO = userService.getUserDAO();
 
-    @Override
-    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-//        super.doPost(httpServletRequest, httpServletResponse);
+        userDAO.banUser(request.getParameter("userToBan"));
+
+        response.sendRedirect(request.getContextPath() + "/allusers");
     }
 }
