@@ -39,13 +39,11 @@ public class CreateAccountServlet extends HttpServlet implements GeneralConstant
         User foundUser = userDAO.getUser(username);
 
         if (foundUser != null) {
-            // TODO: notify user on the webpage instead of STDOUT
-            System.out.println("Account with the given username already exists");
-            response.sendRedirect("/create-account");
+            request.setAttribute(MESSAGE_STRING, ERROR_ACCOUNT_EXISTS);
+            request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
         } else if (!password.equals(repeatedPassword)) {
-            // TODO: notify user on the webpage instead of STDOUT
-            System.out.println("Repeated password is invalid");
-            response.sendRedirect("/create-account");
+            request.setAttribute(MESSAGE_STRING, ERROR_REPEATED_PASSWORD);
+            request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
         } else {
             UserInfo userInfo = new UserInfo(firstName, lastname, email, address, phoneNumber, note);
 
@@ -53,11 +51,11 @@ public class CreateAccountServlet extends HttpServlet implements GeneralConstant
             boolean inserted = userService.insertUser(username, passwordHash, userInfo);
 
             if (inserted) {
-                request.getRequestDispatcher("Pages/successful-account-creation.jsp").forward(request, response);
+                request.setAttribute(MESSAGE_STRING, ACCOUNT_CREATED_SUCCESSFULLY);
+                request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
             } else {
-                // TODO: notify user on the webpage instead of STDOUT
-                System.out.println("Couldn't register");
-                response.sendRedirect("/create-account");
+                request.setAttribute(MESSAGE_STRING, ERROR_REGISTRATION);
+                request.getRequestDispatcher("Pages/create-account.jsp").forward(request, response);
             }
         }
     }

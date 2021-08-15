@@ -18,5 +18,12 @@
     </form>
 
     <a href="create-account">Create New Account</a>
+    <br>
+    <span>
+        <%  String errorMessage = (String)request.getAttribute("message");
+            if (errorMessage != null) { %>
+                <span><%=errorMessage%></span>
+        <%  } %>
+    </span>
 </body>
 </html>
