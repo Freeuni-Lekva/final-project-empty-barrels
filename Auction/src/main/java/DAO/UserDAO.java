@@ -47,6 +47,14 @@ public interface UserDAO {
     public List<User> getAllUsers();
 
     /**
+     * Gets top "userCount" users from the store (determined by number
+     * of auctions user has won)
+     * @param userCount top "userCount" users will be returned
+     * @return list of top users
+     */
+    public List<User> getTopUsers(int userCount);
+
+    /**
      * Deletes every row in Users store
      */
     public void deleteEverything();
