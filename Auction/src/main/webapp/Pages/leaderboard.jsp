@@ -12,17 +12,30 @@
 %>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Leaderboard</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a8ba60cbab.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../Styles/reset.css">
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css">
 </head>
 <body>
-    <h1>Top <%=topUsers.size()%> Users:</h1>
-    <ol>
-        <% for (User user : topUsers) { %>
-        <li><%=user.getUsername()%>: <%=user.getNumAuctionsWon()%></li>
-        <% } %>
-    </ol>
+    <div class="main-div">
+        <h1 class="h1">Top <%=topUsers.size()%> Users:</h1>
+        <br>
 
-    <br>
-    <a href="account-home">Back</a>
+        <ol>
+            <% for (User user : topUsers) { %>
+                <li> <span class="label-2-blue"><%=user.getUsername()%>: </span> <span class="score-text"><%=user.getNumAuctionsWon()%></span> </li>
+                <br>
+            <% } %>
+        </ol>
+
+        <br>
+        <a class="h4-link" href="account-home">Back</a>
+    </div>
 </body>
 </html>

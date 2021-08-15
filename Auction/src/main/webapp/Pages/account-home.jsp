@@ -14,15 +14,24 @@
 %>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Account Home</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a8ba60cbab.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../Styles/reset.css">
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css">
 </head>
 <body>
-    <h1>User: <%=currentUser.getUsername()%></h1>
-
-    <a href="profile">My Profile</a>
-    <br>
-    <a href="leaderboard">Leaderboard</a>
-    <br>
-    <a href="logout">Logout</a>
+    <div class="main-div">
+        <h1 class="h1">User: <%=currentUser.getUsername()%></h1>
+        <a class="h4-link" href="profile">My Profile</a>
+        <br>
+        <a class="h4-link" href="leaderboard">Leaderboard</a>
+        <br>
+        <a class="h4-link" href="logout">Logout</a>
+    </div>
 </body>
 </html>
