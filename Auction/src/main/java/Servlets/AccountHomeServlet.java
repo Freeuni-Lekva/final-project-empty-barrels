@@ -40,7 +40,7 @@ public class AccountHomeServlet extends HttpServlet implements GeneralConstants 
 
         ServletContext servletContext = getServletContext();
         HttpSession session = request.getSession();
-        UserService userService = (UserService)servletContext.getAttribute(USER_SERVICE);
+        UserService userService = (UserService) servletContext.getAttribute(USER_SERVICE);
         UserDAO userDAO = userService.getUserDAO();
         UserInfoDAO userInfoDAO = userService.getUserInfoDAO();
         User foundUser = userDAO.getUser(username);
@@ -51,7 +51,10 @@ public class AccountHomeServlet extends HttpServlet implements GeneralConstants 
         } else if (!passwordHash.equals(foundUser.getPassword())) {
             request.setAttribute(MESSAGE_STRING, ERROR_INVALID_PASSWORD);
             request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
-        } else {
+        } else if (foundUser.getIsBanned()) {
+            request.setAttribute(MESSAGE_STRING, "User is banned.");
+            request.getRequestDispatcher("Pages/home.jsp").forward(request, response);
+        }else {
             // Successful login
             int userInfoId = foundUser.getUserInfoId();
             UserInfo foundUserInfo = userInfoDAO.getUserInfo(userInfoId);
