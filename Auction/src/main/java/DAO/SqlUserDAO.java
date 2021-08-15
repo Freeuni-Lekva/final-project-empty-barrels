@@ -2,10 +2,7 @@ package DAO;
 
 import Models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +27,7 @@ public class SqlUserDAO implements UserDAO {
             if (resultSet.next()) {
                 user = convertToUser(resultSet);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return user;
     }
@@ -43,7 +38,7 @@ public class SqlUserDAO implements UserDAO {
 
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
-                                                                 " WHERE user_name=?;");
+                                                                 " WHERE BINARY user_name=?;");
 
             stmt.setString(1, username);
             ResultSet resultSet = stmt.executeQuery();
@@ -51,9 +46,7 @@ public class SqlUserDAO implements UserDAO {
             if (resultSet.next()) {
                 user = convertToUser(resultSet);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return user;
     }
@@ -69,11 +62,29 @@ public class SqlUserDAO implements UserDAO {
             while (resultSet.next()) {
                 userList.add(convertToUser(resultSet));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return userList;
+    }
+
+    @Override
+    public List<User> getTopUsers(int userCount) {
+        List<User> topUserList = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
+                    " ORDER BY auctions_won DESC" +
+                    " LIMIT ?");
+            stmt.setInt(1, userCount);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                topUserList.add(convertToUser(resultSet));
+            }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
+
+        return topUserList;
     }
 
     @Override
@@ -90,16 +101,14 @@ public class SqlUserDAO implements UserDAO {
             stmt.setBoolean(5, user.getIsAdmin());
             stmt.setBoolean(6, user.getIsBanned());
             stmt.setInt(7, user.getNumAuctionsWon());
-            stmt.setInt(8, user.getRating());
+            stmt.setDouble(8, user.getRating());
             stmt.setInt(9, user.getNumReviews());
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 
     @Override
@@ -111,27 +120,27 @@ public class SqlUserDAO implements UserDAO {
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return false;
+        } catch (SQLException throwables) { return false; }
     }
 
     @Override
     public boolean removeUser(String username) {
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM Users" +
-                    " WHERE user_name=?;");
+                    " WHERE BINARY user_name=?;");
             stmt.setString(1, username);
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { return false; }
+    }
 
-        return false;
+    @Override
+    public void deleteEverything() {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.execute("DELETE FROM Users;");
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
     }
 
     /**
@@ -148,9 +157,7 @@ public class SqlUserDAO implements UserDAO {
                               resultSet.getBoolean(5), resultSet.getBoolean(6),
                               resultSet.getBoolean(7), resultSet.getInt(8),
                               resultSet.getInt(9), resultSet.getInt(10));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
 
         return result;
     }

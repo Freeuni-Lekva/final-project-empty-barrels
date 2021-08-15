@@ -1,21 +1,19 @@
 <%@ page import="Models.User" %>
-<%@ page import="Models.UserInfo" %>
-<%@ page import="static Helper.GeneralConstants.*" %><%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: samad
-  Date: 12.08.2021
-  Time: 13:01
+  Date: 14.08.2021
+  Time: 15:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    User currentUser = (User)session.getAttribute(CURRENT_USER_STRING);
-//    UserInfo currentUserInfo = (UserInfo)session.getAttribute(CURRENT_USER_INFO_STRING);
+    List<User> topUsers = (List<User>)request.getAttribute("topUsers");
 %>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Account Home</title>
+    <title>Leaderboard</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -26,14 +24,18 @@
 </head>
 <body>
     <div class="main-div">
-        <h1 class="h1">User: <%=currentUser.getUsername()%></h1>
-        <a class="h4-link" href="profile">My Profile</a>
+        <h1 class="h1">Top <%=topUsers.size()%> Users:</h1>
         <br>
-        <a class="h4-link" href="leaderboard">Leaderboard</a>
+
+        <ol>
+            <% for (User user : topUsers) { %>
+                <li> <span class="label-2-blue"><%=user.getUsername()%>: </span> <span class="score-text"><%=user.getNumAuctionsWon()%></span> </li>
+                <br>
+            <% } %>
+        </ol>
+
         <br>
-        <a href="auctions">Auctions</a>
-        <br>
-        <a class="h4-link" href="logout">Logout</a>
+        <a class="h4-link" href="account-home">Back</a>
     </div>
 </body>
 </html>
