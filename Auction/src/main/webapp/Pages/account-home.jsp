@@ -22,5 +22,7 @@
     <a href="profile">My Profile</a>
     <br>
     <a href="logout">Logout</a>
+    <br>
+    <a href="auctions">Auctions</a>
 </body>
 </html>
