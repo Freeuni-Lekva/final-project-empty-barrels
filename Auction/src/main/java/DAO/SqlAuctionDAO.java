@@ -7,11 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuctionDAO implements AuctionDAOInterface {
+public class SqlAuctionDAO implements AuctionDAOInterface {
     public final static String AUCTIONDAO_STR = "AUCTION_DAO_STR_UNIQUE";
     private Connection connection;
 
-    public AuctionDAO(Connection connection) {
+    public SqlAuctionDAO(Connection connection) {
         this.connection = connection;
     }
 

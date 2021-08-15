@@ -1,6 +1,6 @@
 <%@ page import="Models.User" %>
 <%@ page import="Models.UserInfo" %>
-<%@ page import="DAO.AuctionDAO" %>
+<%@ page import="DAO.SqlAuctionDAO" %>
 <%@ page import="Models.Auction" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="static Helper.GeneralConstants.*" %>
@@ -40,7 +40,7 @@
            <tbody>
 
             <%
-                    AuctionDAO auctionDao = (AuctionDAO)application.getAttribute("AUCTION_DAO_STR_UNIQUE");
+                    SqlAuctionDAO auctionDao = (SqlAuctionDAO)application.getAttribute("AUCTION_DAO_STR_UNIQUE");
                     for (Auction auc : auctionDao.getAllAuctions()){
                         out.println("<tr><td>"+auc.getId()+"</td><td>"+auc.getSeller_id()+"</td><td>"+auc.getItem_id()+"</td><td>"+auc.getStarting_price()+"</td><td>"+auc.getMin_increment()+"</td><td>"+auc.getEnd_date()+"</td><td>"+auc.getCurrent_price()+"</td></tr>");
                     }
