@@ -56,7 +56,6 @@ public class UserService {
         int lastId = SQLPK.getLastPrimaryKey(connection);
 
         if (!userInfoInserted) {
-            userInfoDAO.removeUserInfo(lastId);
             return false;
         }
 

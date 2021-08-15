@@ -81,7 +81,7 @@ public class SqlUserDAO implements UserDAO {
             stmt.setBoolean(5, user.getIsAdmin());
             stmt.setBoolean(6, user.getIsBanned());
             stmt.setInt(7, user.getNumAuctionsWon());
-            stmt.setInt(8, user.getRating());
+            stmt.setDouble(8, user.getRating());
             stmt.setInt(9, user.getNumReviews());
             int numRowsAffected = stmt.executeUpdate();
 

@@ -31,8 +31,6 @@ public class User implements GeneralConstants {
     public static final double MAX_BID_GOLD = 10000.0;
     public static final double MAX_BID_PLATINUM = 100000.0;
 
-
-
     private int id;
     private int userInfoId;
     private String username;
@@ -41,9 +39,10 @@ public class User implements GeneralConstants {
     private boolean isAdmin;
     private boolean isBanned;
     private int numAuctionsWon;
-    private int rating;
+    private double rating;
     private int numReviews;
     private int status; // UNDEFINED, SILVER, GOLD, PLATINUM
+    private int sumReviewScores;
 
     public User(int id, int userInfoId, String username, String password,
                 boolean isDealer, boolean isAdmin, boolean isBanned, int numAuctionsWon,
@@ -59,6 +58,7 @@ public class User implements GeneralConstants {
         this.rating = rating;
         this.numReviews = numReviews;
         this.status = calculateStatus(numAuctionsWon);
+        this.sumReviewScores = 0; // might change later
     }
 
     public User(int userInfoId, String username, String password,
@@ -103,7 +103,7 @@ public class User implements GeneralConstants {
         return numAuctionsWon;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -151,7 +151,7 @@ public class User implements GeneralConstants {
         this.status = calculateStatus(numAuctionsWon);
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -173,6 +173,17 @@ public class User implements GeneralConstants {
      */
     public void incrementNumAuctionsWon() {
         incrementNumAuctionsWon(1);
+    }
+
+    /**
+     * Gets a single review score and updates rating accordingly
+     * @param reviewScore score of the new review
+     */
+    public void addRating(int reviewScore) {
+        numReviews++;
+        sumReviewScores += reviewScore;
+
+        setRating((double)sumReviewScores / numReviews);
     }
 
     /**
