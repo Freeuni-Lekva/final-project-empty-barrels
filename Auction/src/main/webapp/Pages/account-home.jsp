@@ -31,7 +31,7 @@
         <br>
         <a class="h4-link" href="leaderboard">Leaderboard</a>
         <br>
-        <a href="auctions">Auctions</a>
+        <a class="h4-link" href="auctions">Auctions</a>
         <br>
         <a class="h4-link" href="logout">Logout</a>
     </div>
