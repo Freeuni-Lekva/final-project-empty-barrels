@@ -35,19 +35,13 @@
             java.sql.Date date=new java.sql.Date(millis);
             if (auction.getEnd_date().compareTo(date)<=0){ %>
                 <li>
-                    class="label-2-blue" Item Name: <%=auction.getItem_name()%> </span> <br>
-                    class="score-text"   Item Description: <%=auction.getItem_description()%></span> <br>
-                </li>
-                <li>
+                    <span class="label-2-blue"> Item Name: <%=auction.getItem_name()%> </span> <br>
+                    <span class="score-text">   Item Description: <%=auction.getItem_description()%></span> <br>
                     <span class="label-2-blue"> Starting Price: <%=auction.getCurrent_price()%>$: </span> <br>
                     <span class="score-text"> Minimal Increment: <%=auction.getMin_increment()%></span> <br>
-                </li>
-                <li>
-                    <span class="label-1">Seller: <%=auction.getStarting_price() %> </span>
-                    <%--                                              --%>
                     <% for (User seller : users) {
                         if (seller.getId()==auction.getSeller_id()){ %>
-                            <span class="label-1">Seller : <%=seller.getUsername()%> </span>
+                            <span class="label-1">Seller : <%=seller.getUsername()%> </span> <br>
                             <span class="label-1">Seller Rating: <%= seller.getRating() %> </span> <br>
                         <% } %>
                     <% } %>
