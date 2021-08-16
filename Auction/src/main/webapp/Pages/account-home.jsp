@@ -39,10 +39,10 @@
         <% } %>
         <a class="h4-link" href="write-review">Write Review</a>
         <br>
-        <%-- if (currentUser.getIsDealer()){ --%>
+        <% if (currentUser.getIsDealer()){ %>
             <a class="h4-link" href="add-auction">Add auction</a>
             <br>
-        <%-- } --%>
+        <% } %>
         <a class="h4-link" href="active-auctions">Active auctions</a>
         <br>
         <a class="h4-link" href="user-auctions">Auctions you have won/are winning</a>
