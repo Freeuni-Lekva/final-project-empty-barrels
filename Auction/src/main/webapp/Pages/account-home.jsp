@@ -45,6 +45,8 @@
         <%-- } --%>
         <a class="h4-link" href="active-auctions">Active auctions</a>
         <br>
+        <a class="h4-link" href="auction-bid">Bid on an active auction</a>
+        <br>
         <a class="h4-link" href="logout">Logout</a>
         <br>
     </div>

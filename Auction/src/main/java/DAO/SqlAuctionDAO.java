@@ -44,7 +44,7 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
                     "VALUES (?, ?, ?, ?, ?, ?,?,?)");
 //            stmt.setInt(1, auction.getId());
             stmt.setInt(1, auction.getSeller_id());
-            stmt.setInt(2, 1); // admin is the bidder with 0 price
+            stmt.setInt(2, auction.getCurrent_bidder_id());
             stmt.setInt(3, auction.getStarting_price());
             stmt.setInt(4, auction.getMin_increment());
             stmt.setDate(5, (Date) auction.getEnd_date());
@@ -59,7 +59,29 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
         }
         return false;
     }
+    public boolean updateAuction (int newBid,int newBidderId,int id){
+        try {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE auctions" +
+                    " SET current_price = ? WHERE id = ?");
 
+            stmt.setInt(1, newBid);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+
+            PreparedStatement stmt2 = connection.prepareStatement("UPDATE Auctions" +
+                    " SET current_bidder_ID = ? WHERE id = ?");
+
+            stmt2.setInt(1, newBidderId);
+            stmt2.setInt(2, id);
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+
+    }
     @Override
     public boolean removeAuction(int id) {
         try {

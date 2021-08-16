@@ -35,6 +35,7 @@
             java.sql.Date date=new java.sql.Date(millis);
             if (auction.getEnd_date().compareTo(date)>=0){ %>
                 <li>
+                    <span class="label-2-blue"> Item Code: <%=auction.getId()%> </span> <br>
                     <span class="label-2-blue"> Item Name: <%=auction.getItem_name()%> </span> <br>
                     <span class="score-text">   Item Description: <%=auction.getItem_description()%></span> <br>
                     <span class="label-2-blue"> Current Price: <%=auction.getCurrent_price()%>$ </span> <br>
