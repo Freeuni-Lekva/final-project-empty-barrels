@@ -75,6 +75,16 @@
     <url-pattern>/write-review</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>AddAuctionServlet</servlet-name>
+    <servlet-class>Servlets.AddAuctionServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AddAuctionServlet</servlet-name>
+    <url-pattern>/add-auction</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>Listeners.ContextListener</listener-class>
   </listener>

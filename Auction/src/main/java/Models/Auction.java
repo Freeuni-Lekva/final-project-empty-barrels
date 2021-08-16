@@ -1,21 +1,21 @@
 package Models;
 
+import Helper.GeneralConstants;
+
 import java.util.Date;
 
-public class Auction {
+public class Auction implements GeneralConstants {
     private int id;
     private int seller_id;
-    private int item_id;
     private int current_bidder_id;
     private int starting_price;
     private int min_increment;
     private int current_price;
     private Date end_date;
 
-    public Auction(int id, int seller_id, int item_id, int current_bidder_id, int starting_price, int min_increment, int current_price, Date end_date) {
+    public Auction(int id, int seller_id, int current_bidder_id, int stating_price, int min_increment, int current_price, Date end_date) {
         this.id = id;
         this.seller_id = seller_id;
-        this.item_id = item_id;
         this.current_bidder_id = current_bidder_id;
         this.starting_price = starting_price;
         this.min_increment = min_increment;
@@ -23,16 +23,13 @@ public class Auction {
         this.end_date = end_date;
     }
 
+
     public int getId() {
         return id;
     }
 
     public int getSeller_id() {
         return seller_id;
-    }
-
-    public int getItem_id() {
-        return item_id;
     }
 
     public int getCurrent_bidder_id() {
@@ -61,10 +58,6 @@ public class Auction {
 
     public void setSeller_id(int seller_id) {
         this.seller_id = seller_id;
-    }
-
-    public void setItem_id(int item_id) {
-        this.item_id = item_id;
     }
 
     public void setCurrent_bidder_id(int current_bidder_id) {

@@ -1,27 +1,29 @@
+use oop_project;
+
 CREATE TABLE UserInfos(
-  ID                INT NOT NULL AUTO_INCREMENT,
-  first_name        VARCHAR(50) NOT NULL,
-  last_name         VARCHAR(70) NOT NULL,
-  email             VARCHAR(100) NOT NULL,
-  address           VARCHAR(150), -- we'll make mandatory fields NOT NULL for safety
-  phone_number      VARCHAR(15) NOT NULL,
-  note              VARCHAR(150),
-  PRIMARY KEY (ID)
+    ID                INT NOT NULL AUTO_INCREMENT,
+    first_name        VARCHAR(50) NOT NULL,
+    last_name         VARCHAR(70) NOT NULL,
+    email             VARCHAR(100) NOT NULL,
+    address           VARCHAR(150), -- we'll make mandatory fields NOT NULL for safety
+    phone_number      VARCHAR(15) NOT NULL,
+    note              VARCHAR(150),
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Users(
-  ID                INT NOT NULL AUTO_INCREMENT,
-  user_info_ID      INT NOT NULL,
-  user_name         VARCHAR(100) BINARY NOT NULL UNIQUE,
-  password          VARCHAR(80) NOT NULL, -- 100 because we will save SHA-256 HASHes (they are 64-char long)
-  is_dealer         BOOLEAN NOT NULL DEFAULT FALSE,
-  is_admin          BOOLEAN NOT NULL DEFAULT FALSE,
-  is_banned         BOOLEAN NOT NULL DEFAULT FALSE,
-  auctions_won      INT NOT NULL DEFAULT 0,
-  rating            DOUBLE PRECISION NOT NULL DEFAULT 0,
-  num_reviews       INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (ID),
-  FOREIGN KEY (user_info_ID) REFERENCES UserInfos(ID)
+    ID                INT NOT NULL AUTO_INCREMENT,
+    user_info_ID      INT NOT NULL,
+    user_name         VARCHAR(100) BINARY NOT NULL UNIQUE,
+    password          VARCHAR(80) NOT NULL, -- 100 because we will save SHA-256 HASHes (they are 64-char long)
+    is_dealer         BOOLEAN NOT NULL DEFAULT FALSE,
+    is_admin          BOOLEAN NOT NULL DEFAULT FALSE,
+    is_banned         BOOLEAN NOT NULL DEFAULT FALSE,
+    auctions_won      INT NOT NULL DEFAULT 0,
+    rating            DOUBLE PRECISION NOT NULL DEFAULT 0,
+    num_reviews       INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (user_info_ID) REFERENCES UserInfos(ID)
 );
 
 CREATE TABLE Messages(
@@ -55,37 +57,25 @@ CREATE TABLE Reviews(
     FOREIGN KEY (recipient_ID) REFERENCES Users(ID)
 );
 
-CREATE TABLE Items(
-  ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name         		VARCHAR(100) NOT NULL,
-  description		TEXT DEFAULT NULL,
-  image_name		TEXT DEFAULT NULL,
-  buyout_price		INT UNSIGNED NOT NULL
-);
-
-
 CREATE TABLE Auctions(
-  ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  seller_ID     	INT NOT NULL,
-  item_ID        	INT NOT NULL,
-  current_bidder_ID INT NOT NULL,
-  starting_price	INT UNSIGNED NOT NULL,
-  min_increment		INT UNSIGNED NOT NULL,
-  end_time			timestamp NULL DEFAULT NULL,
-  current_price		INT UNSIGNED NOT NULL,
+    ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    seller_ID     	INT NOT NULL,
+    current_bidder_ID INT DEFAULT 1,
+    starting_price	INT UNSIGNED NOT NULL,
+    min_increment		INT UNSIGNED NOT NULL,
+    end_time			timestamp NULL DEFAULT NULL,
+    current_price		INT UNSIGNED NOT NULL ,
 
-  FOREIGN KEY (seller_id) REFERENCES Users(ID),
-  FOREIGN KEY (current_bidder_ID) REFERENCES Users(ID),
-  FOREIGN KEY (item_ID) REFERENCES Items(ID)
+    FOREIGN KEY (seller_id) REFERENCES Users(ID),
+    FOREIGN KEY (current_bidder_ID) REFERENCES Users(ID)
 );
 
 
 CREATE TABLE Bidder_Auctions(
-  ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  bidder_ID     	INT NOT NULL,
-  auction_ID        INT NOT NULL,
-  bid				INT UNSIGNED NOT NULL,
-
-  FOREIGN KEY (bidder_ID) REFERENCES Users(ID),
-  FOREIGN KEY (auction_ID) REFERENCES Auctions(ID)
+    ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    bidder_ID     	INT NOT NULL,
+    auction_ID        INT NOT NULL,
+    bid				INT UNSIGNED NOT NULL,
+    FOREIGN KEY (bidder_ID) REFERENCES Users(ID),
+    FOREIGN KEY (auction_ID) REFERENCES Auctions(ID)
 );

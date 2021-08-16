@@ -40,16 +40,15 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
     public boolean insertAuction(Auction auction) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Auctions" +
-                    "(ID, seller_ID, item_ID, current_bidder_ID, starting_price, min_increment, end_time, current_price)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setInt(1, auction.getId());
-            stmt.setInt(2, auction.getSeller_id());
-            stmt.setInt(3, auction.getItem_id());
-            stmt.setInt(4, auction.getCurrent_bidder_id());
-            stmt.setInt(5, auction.getStarting_price());
-            stmt.setInt(6, auction.getMin_increment());
-            stmt.setDate(7, (Date) auction.getEnd_date());
-            stmt.setInt(8, auction.getCurrent_price());
+                    "(seller_ID, starting_price,current_bidder_ID, min_increment, end_time, current_price)" +
+                    "VALUES (?, ?, ?, ?, ?, ?)");
+//            stmt.setInt(1, auction.getId());
+            stmt.setInt(1, auction.getSeller_id());
+            stmt.setInt(2, auction.getStarting_price());
+            stmt.setInt(3, 1); // admin is the bidder with 0 price
+            stmt.setInt(4, auction.getMin_increment());
+            stmt.setDate(5, (Date) auction.getEnd_date());
+            stmt.setInt(6, auction.getCurrent_price());
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
@@ -103,8 +102,8 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
         try {
             result = new Auction(resultSet.getInt(1), resultSet.getInt(2),
                     resultSet.getInt(3), resultSet.getInt(4),
-                    resultSet.getInt(5), resultSet.getInt(6),
-                    resultSet.getInt(8), resultSet.getDate(7));
+                    resultSet.getInt(5), resultSet.getInt(7),
+                    resultSet.getDate(6));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
