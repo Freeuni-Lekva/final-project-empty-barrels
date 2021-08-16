@@ -96,7 +96,7 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
         }
         return false;
     }
-
+    
     @Override
     public List<Auction> getAllAuctions() {
         List<Auction> auctionsList = new ArrayList<>();

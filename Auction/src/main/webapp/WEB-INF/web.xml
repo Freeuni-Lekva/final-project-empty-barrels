@@ -105,6 +105,16 @@
     <url-pattern>/auction-bid</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>UserAuctionsServlet</servlet-name>
+    <servlet-class>Servlets.UserAuctionsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UserAuctionsServlet</servlet-name>
+    <url-pattern>/user-auctions</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>Listeners.ContextListener</listener-class>
   </listener>

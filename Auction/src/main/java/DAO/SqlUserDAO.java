@@ -21,7 +21,6 @@ public class SqlUserDAO implements UserDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users" +
                                                                  " WHERE ID=?;");
-
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
 
@@ -219,5 +218,19 @@ public class SqlUserDAO implements UserDAO {
 
             return numRowsAffected == 1;
         } catch (SQLException throwables) { return false; }
+    }
+
+    public void updateAuctionsWon (int numAuctionsWon,int id){
+        try {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE users" +
+                    " SET auctions_won = ? WHERE id = ?");
+
+            stmt.setInt(1, numAuctionsWon);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }

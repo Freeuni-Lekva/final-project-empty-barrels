@@ -79,4 +79,11 @@ public interface UserDAO {
      * Deletes every row in Users store
      */
     public void deleteEverything();
+
+    /**
+     * updates number of auctions won
+     * @param numWon
+     * @param id
+     */
+    void updateAuctionsWon(int numWon, int id);
 }

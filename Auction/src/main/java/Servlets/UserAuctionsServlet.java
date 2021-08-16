@@ -1,11 +1,11 @@
 package Servlets;
 
 import DAO.SqlAuctionDAO;
+import DAO.SqlUserDAO;
 import DAO.UserDAO;
 import Helper.SessionHelper;
 import Models.Auction;
 import Models.User;
-import Models.UserInfo;
 import Services.UserService;
 
 import javax.servlet.ServletContext;
@@ -15,17 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static Helper.GeneralConstants.*;
-import static Helper.GeneralConstants.NO_ID;
+import static Helper.GeneralConstants.USER_SERVICE;
 
-public class ActiveAuctionsServlet extends HttpServlet {
+public class UserAuctionsServlet  extends HttpServlet {
 
 
-    public ActiveAuctionsServlet(){ super(); }
+    public UserAuctionsServlet(){ super(); }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,7 +46,19 @@ public class ActiveAuctionsServlet extends HttpServlet {
         List<Auction> auctions = auctionDAO.getAllAuctions();
         request.setAttribute("auctions", auctions);
 
-        request.getRequestDispatcher("Pages/active-auctions.jsp").forward(request, response);
+        int numWon=0;
+        User currentUser = (User)session.getAttribute(CURRENT_USER_STRING);
+        for (Auction auction : auctions){
+            long millis=System.currentTimeMillis();
+            java.sql.Date date=new java.sql.Date(millis);
+            if (auction.getCurrent_bidder_id()!=auction.getSeller_id()
+                    && auction.getEnd_date().compareTo(date)<0
+                    && currentUser.getId() == auction.getCurrent_bidder_id()) {
+                numWon++;
+            }
+        }
+        userDAO.updateAuctionsWon(numWon,currentUser.getId());
+        request.getRequestDispatcher("Pages/user-auctions.jsp").forward(request, response);
     }
 
 }
