@@ -51,6 +51,19 @@ public class AuctionBidServlet extends HttpServlet implements GeneralConstants {
         }
 
         Auction currentAuction = auctionDAO.getAuction(itemCode);
+        if (currentAuction==null){
+            request.setAttribute(MESSAGE_STRING, "Auction doesnt exist");
+            request.getRequestDispatcher("Pages/auction-bid.jsp").forward(request, response);
+            return;
+        }
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+
+        if (currentAuction.getEnd_date().compareTo(date)<0){
+            request.setAttribute(MESSAGE_STRING, "Bid has already ended");
+            request.getRequestDispatcher("Pages/auction-bid.jsp").forward(request, response);
+            return;
+        }
 
         int bidder = 0;
         if (currentAuction!=null){
