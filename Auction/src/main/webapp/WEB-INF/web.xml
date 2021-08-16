@@ -115,6 +115,16 @@
     <url-pattern>/user-auctions</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>UserReviewsServlet</servlet-name>
+    <servlet-class>Servlets.UserReviewsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UserReviewsServlet</servlet-name>
+    <url-pattern>/user-reviews</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>Listeners.ContextListener</listener-class>
   </listener>
