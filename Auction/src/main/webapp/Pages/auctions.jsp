@@ -1,68 +1,67 @@
 <%@ page import="Models.User" %>
-<%@ page import="Models.UserInfo" %>
-<%@ page import="DAO.SqlAuctionDAO" %>
-<%@ page import="Models.Auction" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="static Helper.GeneralConstants.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Models.Auction" %><%--
+  Created by IntelliJ IDEA.
+  User: samad
+  Date: 14.08.2021
+  Time: 15:07
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    Auction auctions = (Auction)application.getAttribute("AUCTIONS");
-    User currentUser = (User)session.getAttribute(CURRENT_USER_STRING);
-    UserInfo currentUserInfo = (UserInfo)session.getAttribute(CURRENT_USER_INFO_STRING);
+    List<Auction> auctions = (List<Auction>)request.getAttribute("auctions");
+    List<User> users = (List<User>)request.getAttribute("users");
 %>
 <html>
 <head>
     <meta charset="utf-8">
-            <title>Auctions</title>
-            <link rel="preconnect" href="https://fonts.gstatic.com">
-            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-            <link rel="preconnect" href="https://fonts.gstatic.com">
-            <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-            <script src="https://kit.fontawesome.com/a8ba60cbab.js" crossorigin="anonymous"></script>
-            <link rel="stylesheet" type="text/css" href="../Styles/reset.css">
-            <link rel="stylesheet" type="text/css" href="../Styles/style.css">
-            <title>Auctions</title>
-                <style>
-                      table,
-                      th,
-                      td {
-                        padding: 10px;
-                        border: 1px solid black;
-                        border-collapse: collapse;
-                      }
-                </style>
+    <title>All Auctions</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a8ba60cbab.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../Styles/reset.css">
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css">
 </head>
 <body>
-    <div class="main-div">
-        <h2 class="profile-name">Auctions</h2>
+<div class="main-div">
+    <h1 class="h1">All Auctions:</h1>
+    <br>
 
-        <div>
-            <table border="1">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>seller ID</th>
-                  <th>item ID</th>
-                  <th>starting price</th>
-                  <th>min increment</th>
-                  <th>end time</th>
-                  <th>current price</th>
-                </tr>
-               </thead>
-               <tbody>
+    <ol>
+        <% for (Auction auction : auctions) {{ %>
+        <li>
+            <span class="label-2-blue"> Item Code: <%=auction.getId()%> </span> <br>
+            <span class="label-2-blue"> Item Name: <%=auction.getItem_name()%> </span> <br>
+            <span class="score-text">   Item Description: <%=auction.getItem_description()%></span> <br>
+            <span class="label-2-blue"> Current Price: <%=auction.getCurrent_price()%>$ </span> <br>
+            <span class="score-text"> Minimal Increment: <%=auction.getMin_increment()%>$ </span> <br>
+            <% for (User seller : users) {
+                if (seller.getId()==auction.getSeller_id()){ %>
+                    <span class="label-1">Seller : <%=seller.getUsername()%> </span> <br>
+                    <span class="label-1">Seller Rating: <%= seller.getRating() %> </span> <br>
+                <% } %>
+            <% } %>
+            <br>
+            <% for (User bidder : users) {
+                if (bidder.getId()==auction.getCurrent_bidder_id() && bidder.getId() == auction.getSeller_id()){ %>
+            <span class="label-1">Current Bidder : N/A </span> <br>
+            <% } %>
+                <% if (bidder.getId()==auction.getCurrent_bidder_id() && bidder.getId() != auction.getSeller_id()){ %>
+                    <span class="label-1">Current Bidder : <%=bidder.getUsername()%> </span> <br>
+                <% } %>
+            <% } %>
+            -----------------------------------------------------------------------------------------------------
+            <br>
+        </li>
 
-                <%
-                        SqlAuctionDAO auctionDao = (SqlAuctionDAO)application.getAttribute("AUCTION_DAO_STR_UNIQUE");
-                        for (Auction auc : auctionDao.getAllAuctions()){
-                            out.println("<tr><td>"+auc.getId()+"</td><td>"+auc.getSeller_id()+"</td><td>"+auc.getItem_id()+"</td><td>"+auc.getStarting_price()+"</td><td>"+auc.getMin_increment()+"</td><td>"+auc.getEnd_date()+"</td><td>"+auc.getCurrent_price()+"</td></tr>");
-                        }
-                %>
-              </tbody>
-            </table>
-        </div>
+        <% } %>
+        <% } %>
+    </ol>
 
-        <br>
-        <a class="h4-link-2" href="account-home">Back</a>
-    </div>
+    <br>
+    <a class="h4-link" href="account-home">Back</a>
+</div>
 </body>
 </html>

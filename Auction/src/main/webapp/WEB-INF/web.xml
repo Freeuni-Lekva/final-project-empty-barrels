@@ -125,6 +125,17 @@
     <url-pattern>/user-reviews</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>AuctionsServlet</servlet-name>
+    <servlet-class>Servlets.AuctionsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AuctionsServlet</servlet-name>
+    <url-pattern>/auctions</url-pattern>
+  </servlet-mapping>
+
+
   <listener>
     <listener-class>Listeners.ContextListener</listener-class>
   </listener>
