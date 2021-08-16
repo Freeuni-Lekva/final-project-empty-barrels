@@ -73,7 +73,7 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
 
             stmt2.setInt(1, newBidderId);
             stmt2.setInt(2, id);
-            stmt.executeUpdate();
+            stmt2.executeUpdate(); // :)
 
             return true;
         } catch (SQLException throwables) {
@@ -96,7 +96,7 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
         }
         return false;
     }
-    
+
     @Override
     public List<Auction> getAllAuctions() {
         List<Auction> auctionsList = new ArrayList<>();
