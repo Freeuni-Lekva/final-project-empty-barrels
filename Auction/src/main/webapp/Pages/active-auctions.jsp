@@ -15,7 +15,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Leaderboard</title>
+    <title>Active Auctions</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -33,12 +33,12 @@
         <% for (Auction auction : auctions) {
             long millis=System.currentTimeMillis();
             java.sql.Date date=new java.sql.Date(millis);
-            if (auction.getEnd_date().compareTo(date)<=0){ %>
+            if (auction.getEnd_date().compareTo(date)>=0){ %>
                 <li>
                     <span class="label-2-blue"> Item Name: <%=auction.getItem_name()%> </span> <br>
                     <span class="score-text">   Item Description: <%=auction.getItem_description()%></span> <br>
-                    <span class="label-2-blue"> Starting Price: <%=auction.getCurrent_price()%>$: </span> <br>
-                    <span class="score-text"> Minimal Increment: <%=auction.getMin_increment()%></span> <br>
+                    <span class="label-2-blue"> Current Price: <%=auction.getCurrent_price()%>$ </span> <br>
+                    <span class="score-text"> Minimal Increment: <%=auction.getMin_increment()%>$ </span> <br>
                     <% for (User seller : users) {
                         if (seller.getId()==auction.getSeller_id()){ %>
                             <span class="label-1">Seller : <%=seller.getUsername()%> </span> <br>
@@ -47,10 +47,14 @@
                     <% } %>
                     <br>
                     <% for (User bidder : users) {
-                        if (bidder.getId()==auction.getCurrent_bidder_id()){ %>
-                            <span class="label-1">Seller : <%=bidder.getUsername()%> </span> <br>
+                        if (bidder.getId()==auction.getCurrent_bidder_id() && bidder.getId() == auction.getSeller_id()){ %>
+                            <span class="label-1">Current Bidder : N/A </span> <br>
+                        <% } %>
+                        <% if (bidder.getId()==auction.getCurrent_bidder_id() && bidder.getId() != auction.getSeller_id()){ %>
+                           <span class="label-1">Current Bidder : <%=bidder.getUsername()%> </span> <br>
                         <% } %>
                     <% } %>
+                    -----------------------------------------------------------------------------------------------------
                     <br>
                 </li>
 
