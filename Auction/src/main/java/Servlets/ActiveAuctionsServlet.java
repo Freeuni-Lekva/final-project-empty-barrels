@@ -46,7 +46,7 @@ public class ActiveAuctionsServlet extends HttpServlet {
 
         SqlAuctionDAO auctionDAO = (SqlAuctionDAO)servletContext.getAttribute(SqlAuctionDAO.AUCTIONDAO_STR);
         List<Auction> auctions = auctionDAO.getAllAuctions(); // currently displays top 10 users
-        request.setAttribute("auctions", topUsers);
+        request.setAttribute("auctions", auctions);
 
         request.getRequestDispatcher("Pages/active-auctions.jsp").forward(request, response);
     }

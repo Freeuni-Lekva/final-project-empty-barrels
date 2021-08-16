@@ -43,7 +43,7 @@
             <a class="h4-link" href="add-auction">Add auction</a>
             <br>
         <%-- } --%>
-        <a class="h4-link" href="current-auctions">Active auctions</a>
+        <a class="h4-link" href="active-auctions">Active auctions</a>
         <br>
         <a class="h4-link" href="logout">Logout</a>
         <br>
