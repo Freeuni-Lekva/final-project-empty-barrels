@@ -40,15 +40,17 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
     public boolean insertAuction(Auction auction) {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Auctions" +
-                    "(seller_ID, starting_price,current_bidder_ID, min_increment, end_time, current_price)" +
-                    "VALUES (?, ?, ?, ?, ?, ?)");
+                    "(seller_ID,current_bidder_ID, starting_price, min_increment, end_time, current_price,item_name,item_description)" +
+                    "VALUES (?, ?, ?, ?, ?, ?,?,?)");
 //            stmt.setInt(1, auction.getId());
             stmt.setInt(1, auction.getSeller_id());
-            stmt.setInt(2, auction.getStarting_price());
-            stmt.setInt(3, 1); // admin is the bidder with 0 price
+            stmt.setInt(2, 1); // admin is the bidder with 0 price
+            stmt.setInt(3, auction.getStarting_price());
             stmt.setInt(4, auction.getMin_increment());
             stmt.setDate(5, (Date) auction.getEnd_date());
             stmt.setInt(6, auction.getCurrent_price());
+            stmt.setString(7, auction.getItem_name());
+            stmt.setString(8, auction.getItem_description());
             int numRowsAffected = stmt.executeUpdate();
 
             return numRowsAffected == 1;
@@ -103,7 +105,8 @@ public class SqlAuctionDAO implements AuctionDAOInterface {
             result = new Auction(resultSet.getInt(1), resultSet.getInt(2),
                     resultSet.getInt(3), resultSet.getInt(4),
                     resultSet.getInt(5), resultSet.getInt(7),
-                    resultSet.getDate(6));
+                    resultSet.getDate(6),resultSet.getString(8),
+                    resultSet.getString(9));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -76,7 +76,7 @@ public class AddAuctionServlet extends HttpServlet {
         }
 
 
-        Auction auction = new Auction(NO_ID,dealerId,1,price,minIncrement,price,endDate);
+        Auction auction = new Auction(NO_ID,dealerId,dealerId,price,minIncrement,price,endDate,itemName,description);
 
         //System.out.println(dealerId + " " + price + " " + minIncrement + " " + endDate.toString());
 

@@ -60,12 +60,13 @@ CREATE TABLE Reviews(
 CREATE TABLE Auctions(
     ID                INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     seller_ID     	INT NOT NULL,
-    current_bidder_ID INT DEFAULT 1,
+    current_bidder_ID INT NOT NULL,
     starting_price	INT UNSIGNED NOT NULL,
     min_increment		INT UNSIGNED NOT NULL,
     end_time			timestamp NULL DEFAULT NULL,
     current_price		INT UNSIGNED NOT NULL ,
-
+    item_name       VARCHAR(50) NOT NULL,
+    item_description       VARCHAR(500) NOT NULL,
     FOREIGN KEY (seller_id) REFERENCES Users(ID),
     FOREIGN KEY (current_bidder_ID) REFERENCES Users(ID)
 );

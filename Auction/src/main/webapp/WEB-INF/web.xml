@@ -85,6 +85,16 @@
     <url-pattern>/add-auction</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>ActiveAuctionsServlet</servlet-name>
+    <servlet-class>Servlets.ActiveAuctionsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ActiveAuctionsServlet</servlet-name>
+    <url-pattern>/active-auctions</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>Listeners.ContextListener</listener-class>
   </listener>
